@@ -1,26 +1,228 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ *
+ * The palette is derived from the Quicc Technologies logo gradient,
+ * which runs from a deep royal blue (#1D4ED8) to aqua (#22D3EE).
+ * ------------------------------------------------------------------ */
+@theme {
+  /* Surfaces — near-black with a cool blue cast. */
+  --color-ink-950: #06070a;
+  --color-ink-900: #090b10;
+  --color-ink-850: #0c0f16;
+  --color-ink-800: #11151e;
+  --color-ink-700: #1a1f2b;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Brand blue. */
+  --color-brand-950: #071534;
+  --color-brand-900: #0b2a6f;
+  --color-brand-800: #12379b;
+  --color-brand-700: #1d4ed8;
+  --color-brand-600: #2563eb;
+  --color-brand-500: #3b82f6;
+  --color-brand-400: #60a5fa;
+  --color-brand-300: #93c5fd;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Aqua accent — the far end of the logo gradient. */
+  --color-aqua-700: #0e7490;
+  --color-aqua-600: #0891b2;
+  --color-aqua-500: #06b6d4;
+  --color-aqua-400: #22d3ee;
+  --color-aqua-300: #67e8f9;
+
+  /* Ratings. */
+  --color-gold-400: #ffc93c;
+  --color-gold-500: #f5b301;
+
+  /* Status. */
+  --color-mint-400: #34d399;
+
+  --animate-marquee: q-marquee 40s linear infinite;
+  --animate-float: q-float 9s ease-in-out infinite;
+  --animate-float-sm: q-float-sm 7s ease-in-out infinite;
+  --animate-drift: q-drift 20s ease-in-out infinite;
+  --animate-pulse-dot: q-pulse-dot 2.2s ease-in-out infinite;
+  --animate-dash: q-dash 1.8s linear infinite;
+  --animate-shimmer: q-shimmer 6s linear infinite;
+
+  @keyframes q-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes q-float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -16px, 0);
+    }
+  }
+  @keyframes q-float-sm {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -9px, 0);
+    }
+  }
+  @keyframes q-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(24px, -30px, 0) scale(1.08);
+    }
+  }
+  @keyframes q-pulse-dot {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  @keyframes q-dash {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+  @keyframes q-shimmer {
+    to {
+      background-position: 200% center;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Fonts are injected by next/font in the root layout, which defines the
+   --font-sans / --font-mono custom properties on <html>. */
+@theme inline {
+  --font-sans: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, monospace;
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor jumps so section headings clear the fixed header. */
+    scroll-padding-top: 6.5rem;
+    background-color: var(--color-ink-950);
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: #fff;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-brand-600) 45%, transparent);
+  }
+
+  /* Focus ring that stays legible on the dark surface. */
+  :focus-visible {
+    outline: 2px solid var(--color-aqua-400);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilities
+ * ------------------------------------------------------------------ */
+
+/* Primary action fill: a deep blue base lit from the lower-left by a cyan
+   bloom, matching the reference design's buttons. */
+@utility bg-action {
+  background-image: radial-gradient(
+      120% 150% at 24% 115%,
+      #4cc9f0 0%,
+      rgba(76, 201, 240, 0) 58%
+    ),
+    linear-gradient(103deg, #1d4ed8 0%, #2563eb 46%, #1e40af 100%);
+}
+
+/* Brighter variant used on hover. */
+@utility bg-action-hover {
+  background-image: radial-gradient(
+      130% 160% at 24% 118%,
+      #7ddcf7 0%,
+      rgba(125, 220, 247, 0) 62%
+    ),
+    linear-gradient(103deg, #2563eb 0%, #3b82f6 46%, #1d4ed8 100%);
+}
+
+/* Brand gradient rendered into text. */
+@utility text-gradient-brand {
+  background-image: linear-gradient(
+    120deg,
+    var(--color-brand-500),
+    var(--color-brand-700) 45%,
+    var(--color-aqua-400)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fades a horizontally scrolling strip out at both edges. */
+@utility mask-edges {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+/* Faint grid used behind the hero and CTA panels. */
+@utility bg-grid {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Hides scrollbars on drag-scroll strips without disabling scrolling. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
