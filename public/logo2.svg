@@ -1,0 +1,20 @@
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="qcGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Mark: an open ring with two connector nodes — reads as a circuit trace and echoes the double "C" in QuiCC -->
+  <g>
+    <path d="M129.58,163.44 A70,70 0 1,1 163.44,129.58" fill="none" stroke="url(#qcGrad)" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="129.58" cy="163.44" r="9" fill="#22D3EE"/>
+    <circle cx="163.44" cy="129.58" r="9" fill="#1D4ED8"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="210" y="124" font-family="Helvetica Neue, Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-1">
+    <tspan fill="#0F172A">Quicc</tspan><tspan fill="url(#qcGrad)" dx="6">Tech</tspan>
+  </text>
+</svg>
