@@ -18,15 +18,19 @@ const FRAME_WIDTH: Record<ShowcaseItem["kind"], number> = {
  * generated mock in the same visual language, so the strip looks complete
  * before real client screenshots exist. Dropping a file into `/public` and
  * setting `image` on the content entry is all it takes to swap one in.
+ *
+ * Images are intelligently scaled: fill container maintaining aspect ratio,
+ * with proper object-fit to handle variable screenshot dimensions.
  */
 export function ShowcaseFrame({ item }: { item: ShowcaseItem }) {
   const [start, mid, end] = item.palette;
+  const width = FRAME_WIDTH[item.kind];
 
   return (
     <figure
       className="group/frame relative flex-none overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 ease-out will-change-transform hover:scale-[1.06] hover:border-white/25 hover:shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)]"
       style={{
-        width: FRAME_WIDTH[item.kind],
+        width,
         height: FRAME_HEIGHT,
         background: `linear-gradient(140deg, ${start}, ${mid} 55%, ${end})`,
       }}
@@ -38,8 +42,9 @@ export function ShowcaseFrame({ item }: { item: ShowcaseItem }) {
           src={item.image}
           alt={item.title}
           fill
-          sizes="460px"
-          className="object-cover"
+          sizes={`${width}px`}
+          priority={false}
+          className="object-cover object-center"
         />
       ) : (
         <div className="absolute inset-0 grid place-items-center p-7">
