@@ -15,7 +15,7 @@ export function Founder() {
       />
       <SectionEdgeLabel text="FOUNDER" side="right" />
 
-      <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[5fr_7fr] xl:pr-28">
+      <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 lg:grid-cols-[5fr_7fr]">
         <Reveal className="relative">
           <div
             aria-hidden="true"
@@ -35,10 +35,10 @@ export function Founder() {
 
           <div className="absolute bottom-13 -left-4 animate-float-sm rounded-2xl border border-white/13 bg-[rgba(12,15,22,0.8)] px-4.5 py-3.5 shadow-[0_24px_50px_-22px_rgba(0,0,0,0.9)] backdrop-blur-xl">
             <span className="mb-1.5 block font-mono text-[9.5px] tracking-[0.14em] text-white/40">
-              RESPONDS IN
+              QUICC RESPONSE
             </span>
             <span className="text-[17px] font-semibold tracking-[-0.02em]">
-              Under 4 hours
+              Under 3 Hours
             </span>
           </div>
         </Reveal>

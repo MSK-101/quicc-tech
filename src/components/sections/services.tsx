@@ -29,13 +29,13 @@ export function Services() {
       <IsoPanels className="pointer-events-none absolute top-1/2 -right-24 hidden w-105 -translate-y-1/2 opacity-40 [mask-image:linear-gradient(90deg,transparent,#000_45%)] lg:block" />
       <SectionEdgeLabel text="SERVICES" side="left" />
 
-      <div className="relative mx-auto max-w-[1240px] xl:pl-28">
+      <div className="relative mx-auto max-w-[1240px]">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-10">
           <SectionHeading
             index="01"
             label="SERVICES"
-            title="Everything you need to ship, in one team"
-            description="Strategy, design, engineering and launch support. Fixed scope, milestone billing, and code you own from day one."
+            title="Everything You Need to Build, Launch, and Grow"
+            description="One team handles strategy, design, development and launch. You'll know exactly what happens at each stage, pay as each stage is finished, and own everything we build from day one."
           />
           <Reveal delay={0.1}>
             <a

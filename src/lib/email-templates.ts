@@ -53,6 +53,7 @@ function detailRow(label: string, value: string): string {
 export function buildNotificationEmail(values: ContactFormValues) {
   const name = escapeHtml(values.name);
   const email = escapeHtml(values.email);
+  const phone = escapeHtml(values.phone);
   const message = escapeHtml(values.message).replace(/\n/g, "<br />");
 
   const html = shell(`
@@ -64,6 +65,7 @@ export function buildNotificationEmail(values: ContactFormValues) {
       <table style="width:100%;border-collapse:collapse;">
         ${detailRow("Name", name)}
         ${detailRow("Email", `<a href="mailto:${email}" style="color:${BRAND};">${email}</a>`)}
+        ${detailRow("Phone", `<a href="tel:${phone.replace(/[^+\d]/g, "")}" style="color:${BRAND};">${phone}</a>`)}
         ${detailRow("Service", escapeHtml(values.service))}
         ${detailRow("Timeline", escapeHtml(values.timeline))}
       </table>
@@ -78,6 +80,7 @@ export function buildNotificationEmail(values: ContactFormValues) {
     "",
     `Name:     ${values.name}`,
     `Email:    ${values.email}`,
+    `Phone:    ${values.phone}`,
     `Service:  ${values.service}`,
     `Timeline: ${values.timeline}`,
     "",

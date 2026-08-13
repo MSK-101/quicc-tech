@@ -37,12 +37,12 @@ export function Process() {
       <SectionEdgeLabel text="PROCESS" side="left" />
       <IsoFlow className="pointer-events-none absolute top-1/2 -right-20 hidden w-100 -translate-y-1/2 opacity-40 [mask-image:linear-gradient(90deg,transparent,#000_45%)] lg:block" />
 
-      <div className="relative mx-auto max-w-[1240px] xl:pl-28">
+      <div className="relative mx-auto max-w-[1240px]">
         <SectionHeading
           index="04"
           label="PROCESS"
           title="Five steps, fully visible"
-          description="You approve each stage before the next one starts, and you pay as each milestone lands."
+          description="You approve each stage before the next one begins, with payment made one phase at a time."
         />
 
         <div ref={timelineRef} className="relative mt-16">

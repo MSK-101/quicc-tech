@@ -6,10 +6,37 @@
 import type { CSSProperties } from "react";
 
 import { IsoLayers } from "@/components/decor/isometric";
+import { Accordion, type AccordionEntry } from "@/components/ui/accordion";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { techGroups, type TechItem } from "@/content/stack";
+
+const totalTechnologies = techGroups.reduce(
+  (total, group) => total + group.items.length,
+  0,
+);
+
+const entries: AccordionEntry[] = techGroups.map((group) => ({
+  id: group.label,
+  header: () => (
+    <span className="flex items-baseline gap-3">
+      <span className="text-[16.5px] font-semibold tracking-[-0.015em]">
+        {group.label}
+      </span>
+      <span className="font-mono text-[11px] text-white/40">
+        {group.items.length}
+      </span>
+    </span>
+  ),
+  body: () => (
+    <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {group.items.map((item) => (
+        <TechTile key={item.name} item={item} />
+      ))}
+    </ul>
+  ),
+}));
 
 export function TechStack() {
   return (
@@ -23,7 +50,7 @@ export function TechStack() {
           run down this edge, so the artwork has to stay behind them. */}
       <IsoLayers className="pointer-events-none absolute top-1/2 -left-40 hidden w-105 -translate-y-1/2 opacity-30 [mask-image:linear-gradient(270deg,transparent,#000_40%)] lg:block" />
 
-      <div className="relative mx-auto max-w-[1240px] xl:pr-28">
+      <div className="relative mx-auto max-w-[1240px]">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-8">
           <SectionHeading
             index="05"
@@ -34,7 +61,7 @@ export function TechStack() {
           <Reveal delay={0.1}>
             <div className="flex items-baseline gap-2.5 rounded-2xl border border-white/8 bg-white/2.5 px-5 py-4">
               <span className="text-3xl font-semibold tracking-tight text-gradient-brand">
-                {techGroups.reduce((total, group) => total + group.items.length, 0)}
+                {totalTechnologies}
               </span>
               <span className="text-sm text-white/50">
                 technologies in active use
@@ -43,26 +70,9 @@ export function TechStack() {
           </Reveal>
         </div>
 
-        <div className="flex flex-col gap-10">
-          {techGroups.map((group, groupIndex) => (
-            <Reveal key={group.label} delay={groupIndex * 0.05}>
-              <div className="grid gap-5 md:grid-cols-[168px_1fr] md:gap-8">
-                <div className="flex items-start gap-3 md:pt-2">
-                  <span className="mt-2 h-px w-6 flex-none bg-linear-to-r from-brand-500 to-transparent md:w-4" />
-                  <h3 className="font-mono text-[11px] tracking-[0.16em] text-white/45 uppercase">
-                    {group.label}
-                  </h3>
-                </div>
-
-                <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-                  {group.items.map((item) => (
-                    <TechTile key={item.name} item={item} />
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={0.05}>
+          <Accordion items={entries} />
+        </Reveal>
       </div>
     </section>
   );

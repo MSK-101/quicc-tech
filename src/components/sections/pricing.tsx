@@ -17,7 +17,7 @@ export function Pricing() {
       >
         <SectionEdgeLabel text="PRICING" side="left" />
 
-        <div className="relative mx-auto max-w-[1240px] xl:pl-28">
+        <div className="relative mx-auto max-w-[1240px]">
           <SectionHeading
             index="06"
             label="PRICING"

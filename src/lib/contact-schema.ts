@@ -25,6 +25,7 @@ export type TimelineOption = (typeof TIMELINE_OPTIONS)[number];
 export type ContactFormValues = {
   name: string;
   email: string;
+  phone: string;
   service: ServiceOption;
   timeline: TimelineOption;
   message: string;
@@ -42,6 +43,7 @@ export type ContactFieldErrors = Partial<
 export const emptyContactForm: ContactFormValues = {
   name: "",
   email: "",
+  phone: "",
   service: "Mobile App",
   timeline: "1–3 months",
   message: "",
@@ -57,6 +59,9 @@ const LIMITS = {
 // Deliberately permissive: the goal is to catch typos, not to police which
 // addresses are legal.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+// Allows the punctuation people actually type: +44 (0) 7700 900-123 etc.
+const PHONE_ALLOWED = /^[+()\-.\s\d]+$/;
 
 export function validateContactForm(
   values: ContactFormValues,
@@ -76,6 +81,15 @@ export function validateContactForm(
     errors.email = "Please enter a valid email address.";
   } else if (email.length > LIMITS.email.max) {
     errors.email = "That email address is too long.";
+  }
+
+  // Counting digits rather than characters keeps every national format valid.
+  const phone = values.phone.trim();
+  const phoneDigits = phone.replace(/\D/g, "").length;
+  if (phone.length === 0) {
+    errors.phone = "Please add a phone number so we can reach you.";
+  } else if (!PHONE_ALLOWED.test(phone) || phoneDigits < 7 || phoneDigits > 15) {
+    errors.phone = "Please enter a valid phone number.";
   }
 
   if (!SERVICE_OPTIONS.includes(values.service)) {
@@ -109,6 +123,7 @@ export function parseContactPayload(body: unknown): ContactFormValues | null {
   return {
     name: asString("name"),
     email: asString("email"),
+    phone: asString("phone"),
     service: asString("service") as ServiceOption,
     timeline: asString("timeline") as TimelineOption,
     message: asString("message"),

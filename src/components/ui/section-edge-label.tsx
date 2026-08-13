@@ -19,11 +19,12 @@ type SectionEdgeLabelProps = {
  *
  * Purely decorative — the real heading is still in the DOM as an `h2`, so this
  * is hidden from assistive technology. Shown from `xl` up, where the page
- * gutter is wide enough for it to sit beside the content.
+ * gutter is wide enough for it to sit largely beside the content.
  *
- * The section's inner container must reserve room for it with `xl:pr-28`
- * (right side) or `xl:pl-28` (left side), the same way the hero clears its
- * wordmark with `lg:pl-28`.
+ * Sections deliberately do NOT pad their container to clear it. Padding one
+ * side only pushes that section's content off the page's centre line and out of
+ * alignment with every other section. The label sits at `z-0` behind the
+ * content instead, so where the two overlap the content simply covers it.
  */
 export function SectionEdgeLabel({ text, side }: SectionEdgeLabelProps) {
   return (

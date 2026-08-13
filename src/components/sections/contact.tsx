@@ -228,6 +228,22 @@ function ContactForm() {
             />
           </div>
 
+          <Field
+            label="PHONE"
+            error={errors.phone}
+            input={
+              <input
+                type="tel"
+                autoComplete="tel"
+                inputMode="tel"
+                value={values.phone}
+                onChange={(event) => update("phone", event.target.value)}
+                placeholder="+1 555 123 4567"
+                className={inputClasses(Boolean(errors.phone))}
+              />
+            }
+          />
+
           <ChipGroup
             label="WHAT DO YOU NEED?"
             options={SERVICE_OPTIONS}
