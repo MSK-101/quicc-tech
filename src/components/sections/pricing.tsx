@@ -1,83 +1,81 @@
-import { IsoSteps } from "@/components/decor/isometric";
 import { ServiceIcon } from "@/components/icons/service-icons";
 import { ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { FireworksBackground } from "@/components/ui/fireworks-show";
 import { milestones, pricingTiers, type PricingTier } from "@/content/pricing";
 
 const priceFormatter = new Intl.NumberFormat("en-US");
 
 export function Pricing() {
   return (
-    <section
-      id="pricing"
-      className="relative overflow-hidden border-t border-white/6 bg-white/1 px-6 py-28 lg:px-8"
-    >
-      {/* Supporting artwork on the right. The pricing cards are translucent and
-          backdrop-blurred, so where the artwork passes behind them it reads as
-          frosted glass rather than clutter. */}
-      <IsoSteps className="pointer-events-none absolute top-1/2 -right-24 hidden w-120 -translate-y-1/2 opacity-50 [mask-image:linear-gradient(90deg,transparent,#000_40%)] lg:block" />
-      <SectionEdgeLabel text="PRICING" side="left" />
+    <FireworksBackground>
+      <section
+        id="pricing"
+        className="relative overflow-hidden border-t border-white/6 bg-white/1 px-6 py-28 lg:px-8"
+      >
+        <SectionEdgeLabel text="PRICING" side="left" />
 
-      <div className="relative mx-auto max-w-[1240px] xl:pl-28">
-        <SectionHeading
-          index="06"
-          label="PRICING"
-          align="center"
-          accent="brand"
-          title="Transparent starting points"
-          description="These are the real floors — no discovery call required to find them out. Your final quote is set after a consultation, based on scope and features."
-        />
+        <div className="relative mx-auto max-w-[1240px] xl:pl-28">
+          <SectionHeading
+            index="06"
+            label="PRICING"
+            align="center"
+            accent="brand"
+            title="Transparent starting points"
+            description="These are the real floors — no discovery call required to find them out. Your final quote is set after a consultation, based on scope and features."
+          />
 
-        {/* pt-7 leaves room for the recommended badge to straddle the top edge. */}
-        <div className="mt-14 grid gap-5 pt-7 sm:grid-cols-2 xl:grid-cols-4">
-          {pricingTiers.map((tier, index) => (
-            <Reveal key={tier.name} delay={index * 0.06} className="h-full">
-              <PricingCard tier={tier} />
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={0.1}>
-          <div className="mt-6 flex flex-wrap items-center gap-x-12 gap-y-8 rounded-3xl border border-white/8 bg-white/2.5 px-8 py-8">
-            <div className="max-w-60 flex-none">
-              <h3 className="text-lg font-bold tracking-[-0.02em]">
-                Milestone payments
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/50">
-                Transparent pay-as-you-go development. No full upfront payment
-                required.
-              </p>
-            </div>
-
-            <ol className="flex min-w-full flex-1 items-start sm:min-w-100">
-              {milestones.map((milestone, index) => (
-                <li
-                  key={milestone}
-                  className="flex flex-1 items-center last:flex-none"
-                >
-                  <div className="flex flex-none flex-col items-center gap-2">
-                    <span
-                      className="size-3.5 rounded-full bg-linear-to-br from-brand-600 to-aqua-400 ring-4 ring-white/5"
-                      style={{
-                        boxShadow: `0 0 14px rgba(34,211,238,${0.3 + index * 0.14})`,
-                      }}
-                    />
-                    <span className="text-[11px] font-semibold whitespace-nowrap sm:text-[13px]">
-                      {milestone}
-                    </span>
-                  </div>
-                  {index < milestones.length - 1 ? (
-                    <span className="mx-2 mb-7 h-px flex-1 bg-linear-to-r from-white/28 to-white/10" />
-                  ) : null}
-                </li>
-              ))}
-            </ol>
+          {/* pt-7 leaves room for the recommended badge to straddle the top edge. */}
+          <div className="mt-14 grid gap-5 pt-7 sm:grid-cols-2 xl:grid-cols-4">
+            {pricingTiers.map((tier, index) => (
+              <Reveal key={tier.name} delay={index * 0.06} className="h-full">
+                <PricingCard tier={tier} />
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
-      </div>
-    </section>
+
+          <Reveal delay={0.1}>
+            <div className="mt-6 flex flex-wrap items-center gap-x-12 gap-y-8 rounded-3xl border border-white/8 bg-white/2.5 px-8 py-8">
+              <div className="max-w-60 flex-none">
+                <h3 className="text-lg font-bold tracking-[-0.02em]">
+                  Milestone payments
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/50">
+                  Transparent pay-as-you-go development. No full upfront payment
+                  required.
+                </p>
+              </div>
+
+              <ol className="flex min-w-full flex-1 items-start sm:min-w-100">
+                {milestones.map((milestone, index) => (
+                  <li
+                    key={milestone}
+                    className="flex flex-1 items-center last:flex-none"
+                  >
+                    <div className="flex flex-none flex-col items-center gap-2">
+                      <span
+                        className="size-3.5 rounded-full bg-linear-to-br from-brand-600 to-aqua-400 ring-4 ring-white/5"
+                        style={{
+                          boxShadow: `0 0 14px rgba(34,211,238,${0.3 + index * 0.14})`,
+                        }}
+                      />
+                      <span className="text-[11px] font-semibold whitespace-nowrap sm:text-[13px]">
+                        {milestone}
+                      </span>
+                    </div>
+                    {index < milestones.length - 1 ? (
+                      <span className="mx-2 mb-7 h-px flex-1 bg-linear-to-r from-white/28 to-white/10" />
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </FireworksBackground>
   );
 }
 
@@ -86,11 +84,10 @@ function PricingCard({ tier }: { tier: PricingTier }) {
 
   return (
     <article
-      className={`relative flex h-full flex-col gap-6 rounded-3xl p-7 backdrop-blur-md transition duration-400 hover:-translate-y-1.5 ${
-        isRecommended
-          ? "border border-aqua-400/70 bg-ink-900/85 shadow-[0_0_40px_-12px_rgba(34,211,238,0.55),inset_0_1px_0_rgba(255,255,255,0.08)]"
-          : "border border-white/9 bg-ink-900/55 hover:border-white/20"
-      }`}
+      className={`relative flex h-full flex-col gap-6 rounded-3xl p-7 backdrop-blur-md transition duration-400 hover:-translate-y-1.5 ${isRecommended
+        ? "border border-aqua-400/70 bg-ink-900/85 shadow-[0_0_40px_-12px_rgba(34,211,238,0.55),inset_0_1px_0_rgba(255,255,255,0.08)]"
+        : "border border-white/9 bg-ink-900/55 hover:border-white/20"
+        }`}
     >
       {isRecommended ? (
         <span className="absolute -top-3.5 left-1/2 z-10 -translate-x-1/2 rounded-full bg-action px-5 py-1.5 text-[11px] font-bold tracking-[0.14em] whitespace-nowrap text-white uppercase shadow-[0_0_26px_rgba(34,211,238,0.75)]">
@@ -111,9 +108,8 @@ function PricingCard({ tier }: { tier: PricingTier }) {
           {tier.name}
         </span>
         <p
-          className={`mt-2.5 text-[20px] leading-snug font-semibold tracking-[-0.015em] text-white ${
-            isRecommended ? "" : "max-w-[85%]"
-          }`}
+          className={`mt-2.5 text-[20px] leading-snug font-semibold tracking-[-0.015em] text-white ${isRecommended ? "" : "max-w-[85%]"
+            }`}
         >
           {tier.summary}
         </p>

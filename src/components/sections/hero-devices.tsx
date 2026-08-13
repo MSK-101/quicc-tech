@@ -10,7 +10,6 @@ const MINI_STATS = [
 
 const PHONE_ROWS = [
   { gradient: "from-brand-600 to-aqua-400", width: "68%" },
-  { gradient: "from-brand-700 to-brand-500", width: "54%" },
   { gradient: "from-aqua-400 to-mint-400", width: "72%" },
 ];
 
@@ -57,7 +56,7 @@ export function HeroDevices() {
 
 function DashboardCard() {
   return (
-    <div className="absolute top-24 left-[2%] w-[96%] animate-float [transform:rotateY(-17deg)_rotateX(9deg)_rotateZ(1.5deg)] [transform-style:preserve-3d]">
+    <div className="absolute top-24 left-[2%] w-[90%] animate-float [transform:rotateY(-17deg)_rotateX(9deg)_rotateZ(1.5deg)] [transform-style:preserve-3d]">
       <div className="rounded-[18px] bg-linear-[150deg,rgba(255,255,255,0.2),rgba(255,255,255,0.04)] p-3 shadow-[0_60px_120px_-40px_rgba(0,0,0,0.9),0_0_90px_-20px_rgba(37,99,235,0.45)]">
         <div className="overflow-hidden rounded-xl border border-white/7 bg-[#0B0D14]">
           <div className="flex items-center gap-1.5 border-b border-white/6 bg-white/2 px-3.5 py-2.5">
@@ -109,11 +108,10 @@ function DashboardCard() {
                 {CHART_BARS.map((height, index) => (
                   <span
                     key={index}
-                    className={`flex-1 rounded-t-sm ${
-                      index > 10
-                        ? "bg-linear-to-t from-brand-600 to-aqua-400"
-                        : "bg-white/12"
-                    }`}
+                    className={`flex-1 rounded-t-sm ${index > 10
+                      ? "bg-linear-to-t from-brand-600 to-aqua-400"
+                      : "bg-white/12"
+                      }`}
                     style={{ height: `${height}%` }}
                   />
                 ))}
@@ -147,9 +145,9 @@ function DashboardCard() {
 
 function PhoneCard() {
   return (
-    <div className="absolute bottom-2 -left-[6%] z-3 w-49 animate-float [animation-delay:0.8s] [animation-duration:7.5s] [transform:rotateY(-14deg)_rotateX(6deg)]">
+    <div className="absolute bottom-2 z-3 w-43 animate-float [animation-delay:0.8s] [animation-duration:7.5s] [transform:rotateY(-14deg)_rotateX(6deg)]">
       <div className="rounded-[26px] bg-linear-[150deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)] p-1.75 shadow-[0_40px_70px_-26px_rgba(0,0,0,0.95),0_0_60px_-18px_rgba(37,99,235,0.55)]">
-        <div className="flex min-h-[322px] flex-col gap-2.75 overflow-hidden rounded-[20px] border border-white/7 bg-[#0B0D14] px-2.75 py-3">
+        <div className="flex min-h-[300px] flex-col gap-2.75 overflow-hidden rounded-[20px] border border-white/7 bg-[#0B0D14] px-2.75 py-3">
           <div className="flex justify-center">
             <span className="h-1 w-11 rounded-full bg-white/18" />
           </div>

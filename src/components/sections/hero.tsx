@@ -8,12 +8,12 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden px-6 pt-32 pb-24 lg:px-8 lg:pt-40"
+      className="relative overflow-hidden px-6 pt-32 pb-24 lg:px-8 lg:pt-52"
     >
       <HeroBackdrop />
       <VerticalWordmark />
 
-      <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-16 lg:grid-cols-2 lg:gap-10">
+      <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-16 lg:grid-cols-2 lg:gap-24">
         <div className="flex flex-col items-start gap-7">
           <Reveal>
             <div className="inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-white/4 py-1.75 pr-2 pl-3 backdrop-blur-md">

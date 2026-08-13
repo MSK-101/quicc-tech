@@ -7,6 +7,7 @@ import { ArrowRight } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { IsoSteps } from "@/components/decor/isometric";
 import { faqs } from "@/content/faqs";
 import { EASE } from "@/lib/motion";
 
@@ -16,7 +17,10 @@ export function Faq() {
 
   return (
     <section id="faq" className="relative overflow-hidden px-6 py-28 lg:px-8">
-      <SectionEdgeLabel text="FAQ" side="left" />
+      <SectionEdgeLabel text="FAQ" side="right" />
+
+      {/* Supporting artwork on the left */}
+      <IsoSteps className="pointer-events-none absolute top-1/2 -left-24 hidden w-120 -translate-y-1/2 opacity-50 [mask-image:linear-gradient(90deg,#000_40%,transparent)] lg:block" />
 
       <div className="relative mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[4fr_8fr] xl:pl-28">
         <div>
@@ -45,11 +49,10 @@ export function Faq() {
             return (
               <Reveal key={faq.question} delay={index * 0.04}>
                 <div
-                  className={`overflow-hidden rounded-2xl border transition-colors duration-350 ${
-                    isOpen
-                      ? "border-brand-600/40 bg-brand-600/7"
-                      : "border-white/8 bg-white/2 hover:border-white/16"
-                  }`}
+                  className={`overflow-hidden rounded-2xl border transition-colors duration-350 ${isOpen
+                    ? "border-brand-600/40 bg-brand-600/7"
+                    : "border-white/8 bg-white/2 hover:border-white/16"
+                    }`}
                 >
                   <h3>
                     <button
