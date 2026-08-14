@@ -41,7 +41,18 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-14 max-w-[1240px] border-t border-white/8 pt-6">
+      <div className="mx-auto mt-14 max-w-[1240px] rounded-2xl border border-white/8 bg-white/2 px-6 py-5">
+        <h2 className="font-mono text-[10.5px] tracking-[0.14em] text-white/40">
+          PROJECT ACCEPTANCE POLICY
+        </h2>
+        <p className="mt-2 max-w-3xl text-[13.5px] leading-relaxed text-white/50">
+          {site.name} reserves the right to decline projects that do not align
+          with our company values, professional standards, or applicable laws and
+          regulations.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-10 max-w-[1240px] border-t border-white/8 pt-6">
         <span className="text-[13px] text-white/35">
           © {new Date().getFullYear()} {site.name}. All rights reserved.
         </span>
