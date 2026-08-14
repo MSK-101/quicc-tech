@@ -1,4 +1,6 @@
 import { HeroBackdrop } from "@/components/sections/hero-backdrop";
+import Image from "next/image";
+
 import { HeroDevices } from "@/components/sections/hero-devices";
 import { ArrowRight, ButtonLink } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
@@ -11,6 +13,7 @@ export function Hero() {
       className="relative overflow-hidden px-6 pt-32 pb-24 lg:px-8 lg:pt-52"
     >
       <HeroBackdrop />
+      <MobileBackdropArt />
       <VerticalWordmark />
 
       <div className="relative z-10 mx-auto grid max-w-[1240px] items-center gap-16 lg:grid-cols-2 lg:gap-24">
@@ -73,6 +76,32 @@ export function Hero() {
         <HeroDevices />
       </div>
     </section>
+  );
+}
+
+/**
+ * Hero artwork for phones and tablets.
+ *
+ * The desktop device composition is a fixed-height scene that cannot shrink, so
+ * below `lg` it is hidden and this sits behind the copy instead — anchored to
+ * the bottom-right and faded down far enough that the headline stays readable
+ * over it.
+ */
+function MobileBackdropArt() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute right-0 -bottom-4 z-0 w-[85%] max-w-md opacity-25 select-none sm:w-[65%] lg:hidden"
+    >
+      <Image
+        src="/herobg.png"
+        alt=""
+        width={1024}
+        height={1536}
+        priority
+        className="h-auto w-full [mask-image:linear-gradient(180deg,transparent,#000_28%,#000_75%,transparent)]"
+      />
+    </div>
   );
 }
 

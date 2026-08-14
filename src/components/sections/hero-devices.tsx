@@ -146,7 +146,15 @@ function DashboardCard() {
 function PhoneCard() {
   return (
     <div className="absolute bottom-2 z-3 w-43 animate-float [animation-delay:0.8s] [animation-duration:7.5s] [transform:rotateY(-14deg)_rotateX(6deg)]">
-      <div className="rounded-[26px] bg-linear-[150deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)] p-1.75 shadow-[0_40px_70px_-26px_rgba(0,0,0,0.95),0_0_60px_-18px_rgba(37,99,235,0.55)]">
+      <PhoneFrame />
+    </div>
+  );
+}
+
+/** The phone itself, without any positioning — shared by both hero layouts. */
+function PhoneFrame() {
+  return (
+    <div className="rounded-[26px] bg-linear-[150deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)] p-1.75 shadow-[0_40px_70px_-26px_rgba(0,0,0,0.95),0_0_60px_-18px_rgba(37,99,235,0.55)]">
         <div className="flex min-h-[300px] flex-col gap-2.75 overflow-hidden rounded-[20px] border border-white/7 bg-[#0B0D14] px-2.75 py-3">
           <div className="flex justify-center">
             <span className="h-1 w-11 rounded-full bg-white/18" />
@@ -195,7 +203,6 @@ function PhoneCard() {
           <div className="mt-auto flex items-center justify-center rounded-[11px] bg-white py-2.5 text-[10.5px] font-semibold text-ink-950">
             Continue
           </div>
-        </div>
       </div>
     </div>
   );
