@@ -1,3 +1,4 @@
+import { ClosingCta } from "@/components/sections/closing-cta";
 import { Contact } from "@/components/sections/contact";
 import { Faq } from "@/components/sections/faq";
 import { Founder } from "@/components/sections/founder";
@@ -20,15 +21,17 @@ export default function Home() {
       <Portfolio />
       <WhyQuicc />
       <Process />
-      <TechStack />
-      <Pricing />
 
-      {/* Closing run: meet the person you'll work with, ask for the project,
-          then reassure with proof and answers. */}
+      {/* Closing run: introduce the person behind the work, quote the price,
+          show the tooling, ask for the project, then reassure with proof and
+          answers — and finish by pointing back at the form. */}
       <Founder />
+      <Pricing />
+      <TechStack />
       <Contact />
       <Testimonials />
       <Faq />
+      <ClosingCta />
     </>
   );
 }
