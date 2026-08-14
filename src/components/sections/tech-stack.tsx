@@ -55,8 +55,8 @@ export function TechStack() {
           <SectionHeading
             index="05"
             label="STACK"
-            title="Modern tools, chosen for longevity"
-            description="We pick well-supported technology with long release horizons, so your product is still maintainable in three years."
+            title="Modern Technology, Built to Last"
+            description="We select proven, well-supported technologies with strong long-term roadmaps, ensuring your product remains secure, scalable, and easy to maintain as your business grows."
           />
           <Reveal delay={0.1}>
             <div className="flex items-baseline gap-2.5 rounded-2xl border border-white/8 bg-white/2.5 px-5 py-4">

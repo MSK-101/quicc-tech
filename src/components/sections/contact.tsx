@@ -73,10 +73,9 @@ export function Contact() {
                 height={104}
                 className="size-13 rounded-full border border-white/20 bg-white/8 object-cover object-[50%_12%]"
               />
-              <span className="text-sm leading-relaxed text-white/66">
-                Every enquiry is read by our founder,
-                <br />
-                usually the same working day.
+              <span className="max-w-xs text-sm leading-relaxed text-white/66">
+                Every inquiry is reviewed by a dedicated project professional.
+                Responses are typically sent within the same business day.
               </span>
             </div>
           </Reveal>
