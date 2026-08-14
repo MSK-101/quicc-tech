@@ -14,6 +14,9 @@ import { EASE } from "@/lib/motion";
 /** How many pieces are visible before the visitor asks for the rest. */
 const FEATURED_COUNT = 6;
 
+/** Phones show fewer, so the section stays scannable on a small screen. */
+const MOBILE_COUNT = 3;
+
 /**
  * Work shown as a grid of real screenshots rather than a carousel.
  *
@@ -46,13 +49,22 @@ export function Portfolio() {
           label="FEATURED WORK"
           accent="brand"
           align="center"
-          title="Work that earns its keep"
-          description="Real sites and platforms we have designed and shipped. Click any project to view the full page."
+          title="Projects That Drive Results"
+          description="Explore websites, apps, and digital platforms we've designed, developed, and launched. Click any project to see its design, features, and overall structure."
         />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((project, index) => (
-            <Reveal key={project.id} delay={(index % 3) * 0.06}>
+            <Reveal
+              key={project.id}
+              delay={(index % 3) * 0.06}
+              // Phones show only MOBILE_COUNT until "view all" is pressed; the
+              // rest are revealed by CSS so there is no hydration flash from
+              // measuring the viewport in JS.
+              className={
+                !showAll && index >= MOBILE_COUNT ? "hidden sm:block" : undefined
+              }
+            >
               <ProjectCard
                 project={project}
                 onOpen={() => setOpenIndex(index)}
