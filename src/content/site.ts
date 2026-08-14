@@ -58,6 +58,6 @@ export const heroBadges = [
 
 export const founderStats = [
   { value: 60, suffix: "+", label: "Products shipped" },
-  { value: 5, suffix: " yrs", label: "Building for clients" },
+  { value: 5, suffix: "+ Yrs", label: "Building for clients" },
   { value: 4.9, suffix: "", label: "Average client rating" },
 ] as const;
