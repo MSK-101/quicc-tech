@@ -1,14 +1,15 @@
-import type { ServiceIconName } from "@/components/icons/service-icons";
-
 export type Service = {
   title: string;
-  icon: ServiceIconName;
+  /** Supplied icon artwork under `/public/services`. */
+  image: string;
   description: string;
   deliverables: string[];
-  /** Tailwind gradient used for the icon tile. */
-  iconGradient: string;
-  /** Radial glow tinting the top-right of the card. */
-  glow: string;
+  /**
+   * Accent colour for this service, as a hex string. Drives the icon, the tile
+   * behind it, the checkmarks and the card's glow, so each service reads as its
+   * own colour rather than four identical blue cards.
+   */
+  accent: string;
 };
 
 /**
@@ -18,7 +19,7 @@ export type Service = {
 export const services: Service[] = [
   {
     title: "Mobile App Development",
-    icon: "phone",
+    image: "/services/mob.png",
     description:
       "Cross-platform apps built once and shipped to both stores, with the backend and admin dashboard included.",
     deliverables: [
@@ -29,12 +30,11 @@ export const services: Service[] = [
       "Backend APIs",
       "App Store Publishing",
     ],
-    iconGradient: "from-brand-600/40 to-brand-600/10",
-    glow: "rgba(37,99,235,0.35)",
+    accent: "#22D3EE",
   },
   {
     title: "Website Development",
-    icon: "globe",
+    image: "/services/web.png",
     description:
       "Fast, accessible sites your team can edit — from a five-page brochure site to a full storefront.",
     deliverables: [
@@ -45,12 +45,11 @@ export const services: Service[] = [
       "Booking Systems",
       "Custom Web Apps",
     ],
-    iconGradient: "from-aqua-400/40 to-aqua-400/10",
-    glow: "rgba(34,211,238,0.28)",
+    accent: "#3B82F6",
   },
   {
     title: "Landing Pages & Funnels",
-    icon: "funnel",
+    image: "/services/funnel.png",
     description:
       "Pages built around one action, wired to your CRM and instrumented so you can see what actually converts.",
     deliverables: [
@@ -61,12 +60,11 @@ export const services: Service[] = [
       "Conversion Optimization",
       "A/B Testing",
     ],
-    iconGradient: "from-brand-500/40 to-aqua-500/10",
-    glow: "rgba(59,130,246,0.32)",
+    accent: "#A78BFA",
   },
   {
     title: "Custom Software",
-    icon: "code",
+    image: "/services/custom.png",
     description:
       "Internal tools and platforms that replace the spreadsheet currently holding your operation together.",
     deliverables: [
@@ -77,7 +75,6 @@ export const services: Service[] = [
       "Business Automation",
       "Admin Dashboards",
     ],
-    iconGradient: "from-brand-700/45 to-aqua-600/10",
-    glow: "rgba(29,78,216,0.35)",
+    accent: "#34D399",
   },
 ];

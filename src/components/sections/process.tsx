@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
+
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 import { IsoFlow } from "@/components/decor/isometric";
-import { ServiceIcon } from "@/components/icons/service-icons";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -62,11 +63,20 @@ export function Process() {
                 delay={index * 0.05}
                 className="group relative pl-22 md:pl-26"
               >
-                <div className="absolute top-0 left-0 grid size-14 place-items-center rounded-[18px] border border-white/14 bg-linear-[150deg,rgba(255,255,255,0.09),rgba(255,255,255,0.03)] shadow-[0_12px_40px_-14px_rgba(37,99,235,0.6)] backdrop-blur-md transition-transform duration-400 group-hover:scale-105">
-                  <ServiceIcon name={step.icon} className="size-6" />
-                  <span className="absolute -top-2 -right-2 grid size-6 place-items-center rounded-full bg-linear-to-br from-brand-600 to-aqua-400 font-mono text-[11px] font-semibold text-ink-950">
-                    {index + 1}
-                  </span>
+                {/* The artwork already carries its own step number, so no
+                    separate badge is drawn over it. */}
+                <div className="absolute top-0 left-0 size-16">
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-1 rounded-full bg-brand-600/50 opacity-70 blur-lg transition-opacity duration-400 group-hover:opacity-100"
+                  />
+                  <Image
+                    src={step.image}
+                    alt=""
+                    width={128}
+                    height={128}
+                    className="relative size-16 object-contain transition-transform duration-400 group-hover:scale-105"
+                  />
                 </div>
 
                 <div className="rounded-2xl border border-white/8 bg-white/2.5 p-6 transition-colors duration-400 group-hover:border-brand-500/35 group-hover:bg-brand-600/6">

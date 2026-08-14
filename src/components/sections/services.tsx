@@ -1,4 +1,5 @@
-import { ServiceIcon } from "@/components/icons/service-icons";
+import Image from "next/image";
+
 import { IsoPanels } from "@/components/decor/isometric";
 import { ArrowRight } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
@@ -6,11 +7,11 @@ import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { services } from "@/content/services";
 
-const CheckIcon = () => (
+const CheckIcon = ({ color }: { color: string }) => (
   <svg viewBox="0 0 16 16" className="size-3.25 flex-none" fill="none">
     <path
       d="M3.5 8.5l3 3 6-7"
-      stroke="var(--color-aqua-400)"
+      stroke={color}
       strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -55,14 +56,25 @@ export function Services() {
                 <div
                   className="pointer-events-none absolute -top-22 -right-18 size-70 rounded-full opacity-50 blur-[50px] transition-opacity duration-400 group-hover:opacity-80"
                   style={{
-                    background: `radial-gradient(circle, ${service.glow}, transparent 65%)`,
+                    background: `radial-gradient(circle, ${service.accent}59, transparent 65%)`,
                   }}
                 />
 
-                <div
-                  className={`relative grid size-13 place-items-center rounded-[15px] border border-white/12 bg-linear-[140deg] shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${service.iconGradient}`}
-                >
-                  <ServiceIcon name={service.icon} className="size-5.5" />
+                {/* The supplied artwork is a finished 3D tile, so it sits on
+                    its own with a coloured bloom rather than inside a frame. */}
+                <div className="relative size-16">
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full opacity-60 blur-xl transition-opacity duration-400 group-hover:opacity-90"
+                    style={{ background: service.accent }}
+                  />
+                  <Image
+                    src={service.image}
+                    alt=""
+                    width={128}
+                    height={128}
+                    className="relative size-16 object-contain transition-transform duration-400 group-hover:scale-105"
+                  />
                 </div>
 
                 <div className="relative">
@@ -77,7 +89,7 @@ export function Services() {
                 <ul className="relative grid grid-cols-1 gap-x-5 gap-y-2.5 sm:grid-cols-2">
                   {service.deliverables.map((item) => (
                     <li key={item} className="flex items-center gap-2.25">
-                      <CheckIcon />
+                      <CheckIcon color={service.accent} />
                       <span className="text-sm text-white/72">{item}</span>
                     </li>
                   ))}

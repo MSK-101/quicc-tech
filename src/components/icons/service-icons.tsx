@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 import { GRADIENT_ID } from "@/components/ui/svg-defs";
 
 /** Icon keys available to the services and process sections. */
@@ -31,6 +33,8 @@ const PATHS: Record<ServiceIconName, string> = {
 type ServiceIconProps = {
   name: ServiceIconName;
   className?: string;
+  /** Inline styles, typically to set `color` alongside `tone="current"`. */
+  style?: CSSProperties;
   /**
    * `gradient` strokes with the shared brand gradient; `current` inherits the
    * parent's text colour, for use on already-coloured surfaces.
@@ -42,12 +46,14 @@ type ServiceIconProps = {
 export function ServiceIcon({
   name,
   className = "",
+  style,
   tone = "gradient",
 }: ServiceIconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
       className={className}
+      style={style}
       aria-hidden="true"
       fill="none"
     >
