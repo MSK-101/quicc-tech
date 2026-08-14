@@ -29,7 +29,12 @@ export function Portfolio() {
   const remaining = projects.slice(FEATURED_COUNT);
 
   return (
-    <section id="work" className="relative border-t border-white/6 px-6 py-28 lg:px-8">
+    // overflow-hidden contains the background glow below, which is far wider
+    // than a phone viewport and would otherwise scroll the whole page sideways.
+    <section
+      id="work"
+      className="relative overflow-hidden border-t border-white/6 px-6 py-28 lg:px-8"
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-28 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(29,78,216,0.16),transparent_65%)] blur-[60px]"
