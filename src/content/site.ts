@@ -47,17 +47,27 @@ export const socialLinks: { label: string; icon: SocialIconName; href: string }[
     { label: "Facebook", icon: "facebook", href: "#" },
   ];
 
+/**
+ * Hero pills. Each file is a finished badge — border, icon and label are all
+ * part of the artwork — so the component renders the image on its own rather
+ * than composing a pill around it. Natural sizes are recorded so the images
+ * reserve their space and never shift the layout while loading.
+ */
 export const heroBadges = [
-  "Mobile Apps",
-  "Websites",
-  "SaaS",
-  "Custom Software",
-  "Flutter",
-  "WordPress",
+  { label: "Mobile Apps", image: "/services-hero-section/mob.png", width: 2172, height: 724 },
+  { label: "Websites", image: "/services-hero-section/web.png", width: 2071, height: 759 },
+  { label: "Custom Software", image: "/services-hero-section/custom.png", width: 2206, height: 713 },
+  { label: "Flutter", image: "/services-hero-section/flutter.png", width: 2172, height: 724 },
+  { label: "WordPress", image: "/services-hero-section/wp.png", width: 2172, height: 724 },
+  { label: "SaaS", image: "/services-hero-section/saas.png", width: 2172, height: 724 },
 ] as const;
 
+/**
+ * Supplied stat artwork. Each image already carries its own figure and label,
+ * so the component renders the picture rather than composing text over it.
+ */
 export const founderStats = [
-  { value: 60, suffix: "+", label: "Products shipped" },
-  { value: 5, suffix: "+ Yrs", label: "Building for clients" },
-  { value: 4.9, suffix: "", label: "Average client rating" },
+  { alt: "60+ products launched", image: "/team/products.png" },
+  { alt: "5+ years building for clients", image: "/team/years.png" },
+  { alt: "4.9 average client rating", image: "/team/rating.png" },
 ] as const;
