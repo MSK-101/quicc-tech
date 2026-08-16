@@ -16,6 +16,22 @@ import { checkRateLimit, clientIdentifier } from "@/lib/rate-limit";
 const RATE_LIMIT = { limit: 6, windowMs: 10 * 60 * 1000 };
 
 /**
+ * Splits a comma-separated recipient list into the array Resend expects.
+ *
+ * Lets CONTACT_TO_EMAIL hold several addresses:
+ *   CONTACT_TO_EMAIL=Info@QuiccTech.io,webartist101@gmail.com
+ *
+ * Sending to more than one inbox is also a useful safety net — if one provider
+ * filters the message into junk, the other still gets the enquiry.
+ */
+function parseRecipients(value: string): string[] {
+  return value
+    .split(",")
+    .map((address) => address.trim())
+    .filter(Boolean);
+}
+
+/**
  * Reads configuration at request time rather than module scope so a missing
  * key surfaces as a clear 500 instead of crashing the build.
  */
@@ -23,9 +39,12 @@ function readConfig() {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return null;
 
+  const to = parseRecipients(process.env.CONTACT_TO_EMAIL ?? site.email);
+  if (to.length === 0) return null;
+
   return {
     apiKey,
-    to: process.env.CONTACT_TO_EMAIL ?? site.email,
+    to,
     from:
       process.env.CONTACT_FROM_EMAIL ?? `${site.name} <onboarding@resend.dev>`,
   };
@@ -54,7 +73,14 @@ export async function POST(request: Request) {
 
   // Honeypot: a real visitor never sees this field, so a value means a bot.
   // Answer as if it succeeded rather than telling the bot it was caught.
+  //
+  // Logged because this path silently discards the message: if a browser ever
+  // autofills the field, a genuine enquiry disappears with no other trace, and
+  // the log line is the only way to tell that apart from "no traffic".
   if (payload.company) {
+    console.warn(
+      `[contact] Honeypot tripped — discarded submission from ${payload.email}`,
+    );
     return Response.json({ ok: true });
   }
 
@@ -110,7 +136,9 @@ export async function POST(request: Request) {
   const { error: confirmationError } = await resend.emails.send({
     from: config.from,
     to: payload.email,
-    replyTo: config.to,
+    // Replies to the confirmation go to the primary inbox only, so a visitor
+    // hitting reply does not fan out to every internal recipient.
+    replyTo: config.to[0],
     subject: confirmation.subject,
     html: confirmation.html,
     text: confirmation.text,

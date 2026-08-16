@@ -272,18 +272,24 @@ function ContactForm() {
             }
           />
 
-          {/* Honeypot — hidden from people, irresistible to bots. */}
+          {/* Honeypot — hidden from people, irresistible to bots.
+              Deliberately NOT labelled "Company"/"Address"/etc: browsers and
+              password managers ignore autocomplete="off" on recognisable field
+              names and will happily fill them, which would make the server
+              discard a genuine enquiry as spam. The data-* attributes opt out
+              of 1Password, LastPass and Dashlane for the same reason. */}
           <div aria-hidden="true" className="absolute -left-[9999px]">
-            <label>
-              Company
-              <input
-                type="text"
-                tabIndex={-1}
-                autoComplete="off"
-                value={values.company ?? ""}
-                onChange={(event) => update("company", event.target.value)}
-              />
-            </label>
+            <input
+              type="text"
+              tabIndex={-1}
+              aria-hidden="true"
+              autoComplete="off"
+              data-1p-ignore
+              data-lpignore="true"
+              data-form-type="other"
+              value={values.company ?? ""}
+              onChange={(event) => update("company", event.target.value)}
+            />
           </div>
 
           {serverError ? (
