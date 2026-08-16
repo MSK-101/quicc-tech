@@ -1,12 +1,18 @@
+import Image from "next/image";
+import type { CSSProperties } from "react";
+
+import { ReasonIcon } from "@/components/icons/reason-icons";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { reasons } from "@/content/reasons";
 
 /**
- * The ten reasons, all visible at once as a numbered editorial list — each
- * reason carries a supporting line, so the section argues its case rather than
- * hiding it behind ten separate toggles.
+ * The ten reasons as a single centred column: a large index, a hexagon-framed
+ * icon, then the reason and its supporting line. A dotted rail links each row
+ * to the next so the list reads as one continuous sequence.
+ *
+ * Every row carries its own accent colour, graded from aqua down to magenta.
  */
 export function WhyQuicc() {
   return (
@@ -19,33 +25,73 @@ export function WhyQuicc() {
           label="WHY QUICC"
           align="center"
           accent="brand"
-          title="10 Reasons to Partner With Our Team"
-          description="Transparent pricing. Clear communication. Complete visibility. Work directly with experienced engineers and stay informed throughout every phase of development — from strategy and design to launch and ongoing support."
+          title={
+            <>
+              10 Reasons to Partner{" "}
+              <span className="text-gradient-brand">With Our Team</span>
+            </>
+          }
         />
 
-        <ol className="mt-14 grid md:grid-cols-2 md:gap-x-14">
+        {/* Supplied glow divider between the heading and the description. */}
+        <Reveal delay={0.05}>
+          <Image
+            src="/divider.png"
+            alt=""
+            aria-hidden="true"
+            width={2172}
+            height={724}
+            className="mx-auto -my-4 h-auto w-full max-w-md select-none"
+          />
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <p className="mx-auto max-w-2xl text-center text-[16.5px] leading-relaxed text-white/55 text-pretty">
+            Transparent pricing. Clear communication. Complete visibility. Work
+            directly with experienced engineers and stay informed throughout
+            every phase of development — from strategy and design to launch and
+            ongoing support.
+          </p>
+        </Reveal>
+
+        <ol className="mx-auto mt-16 flex max-w-3xl flex-col">
           {reasons.map((reason, index) => (
             <Reveal
               as="li"
               key={reason.title}
-              delay={(index % 2) * 0.06}
-              className="group relative border-t border-white/8 py-6 transition-colors duration-400 hover:border-white/25"
+              delay={0.04}
+              className="group relative flex gap-5 pb-10 last:pb-0 sm:gap-7"
+              // Exposed as a variable so the number, hexagon and rail can all
+              // share one colour without repeating it four times.
+              style={{ "--accent": reason.accent } as CSSProperties}
             >
-              {/* Accent line that wipes in from the left on hover. */}
-              <span className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-linear-to-r from-brand-500 to-aqua-400 transition-transform duration-500 ease-out group-hover:scale-x-100" />
+              <span className="w-9 flex-none pt-1 text-right font-mono text-[19px] leading-none font-semibold tabular-nums text-[color:var(--accent)] sm:w-12 sm:text-[22px]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
-              <div className="flex gap-5">
-                <span className="mt-0.5 font-mono text-[13px] tabular-nums text-aqua-400/70 transition-colors duration-300 group-hover:text-aqua-300">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-[16.5px] leading-snug font-semibold tracking-[-0.015em]">
-                    {reason.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-white/48">
-                    {reason.detail}
-                  </p>
-                </div>
+              <div className="relative flex-none">
+                <ReasonIcon
+                  name={reason.icon}
+                  className="size-13 text-[color:var(--accent)] transition-transform duration-400 group-hover:scale-105 sm:size-14"
+                />
+                {/* Dotted rail down to the next row, with a node at its centre. */}
+                {index < reasons.length - 1 ? (
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-full mx-auto flex h-10 w-px justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.16),transparent)]"
+                  >
+                    <span className="mt-4 size-1.5 rounded-full bg-[color:var(--accent)] opacity-70" />
+                  </span>
+                ) : null}
+              </div>
+
+              <div className="min-w-0 pt-1">
+                <h3 className="text-[17px] leading-snug font-semibold tracking-[-0.015em] sm:text-[18px]">
+                  {reason.title}
+                </h3>
+                <p className="mt-1.5 text-[14.5px] leading-relaxed text-white/50">
+                  {reason.detail}
+                </p>
               </div>
             </Reveal>
           ))}

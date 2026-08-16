@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { riseTransition } from "@/lib/motion";
 
@@ -12,6 +12,8 @@ type RevealProps = {
   /** Distance in pixels the element travels on its way in. */
   distance?: number;
   className?: string;
+  /** Inline styles, e.g. a CSS custom property the children read from. */
+  style?: CSSProperties;
   as?: "div" | "section" | "article" | "li" | "span";
 };
 
@@ -24,6 +26,7 @@ export function Reveal({
   delay = 0,
   distance = 22,
   className,
+  style,
   as = "div",
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -31,7 +34,11 @@ export function Reveal({
 
   if (prefersReducedMotion) {
     const Tag = as;
-    return <Tag className={className}>{children}</Tag>;
+    return (
+      <Tag className={className} style={style}>
+        {children}
+      </Tag>
+    );
   }
 
   return (
@@ -40,6 +47,7 @@ export function Reveal({
       // which is needed because the server-rendered markup starts at opacity 0.
       data-reveal=""
       className={className}
+      style={style}
       initial={{ opacity: 0, y: distance }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15, margin: "0px 0px -40px" }}
