@@ -1,25 +1,25 @@
 import { promoBanner } from "@/content/site";
 
 /**
- * Static launch-pricing notice pinned above the header.
+ * Launch-pricing notice, pinned above the header as a centred pill.
  *
- * Fixed height (32px on phones, 36px from `md`) so the header can sit at a
- * known offset beneath it — `SiteHeader` mirrors those numbers in its `top`.
- * `overflow-hidden` guarantees the non-wrapping text can never widen the
- * document, and the long detail line is dropped on narrow screens.
+ * The bar itself is transparent and only reserves height — `SiteHeader` mirrors
+ * that height in its `top` offset. `overflow-hidden` guarantees the
+ * non-wrapping text can never widen the document, and the long detail line is
+ * dropped on narrow screens where the pill would otherwise span the viewport.
  */
 export function PromoBanner() {
   return (
-    <div className="fixed inset-x-0 top-0 z-[60] flex h-8 items-center justify-center overflow-hidden border-b border-white/10 bg-linear-to-r from-brand-950 via-ink-900 to-brand-950 px-3 md:h-9 md:px-4">
-      <p className="flex items-center gap-2 text-[11px] whitespace-nowrap md:gap-2.5 md:text-[12.5px]">
-        <span className="inline-flex items-center gap-1.5 font-semibold tracking-tight text-aqua-300 md:gap-2">
-          <span className="size-1.5 flex-none rounded-full bg-aqua-400 shadow-[0_0_8px_var(--color-aqua-400)]" />
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[60] flex h-12 items-center justify-center overflow-hidden px-4">
+      <p className="pointer-events-auto flex items-center gap-2.5 rounded-full border border-aqua-400/35 bg-ink-950/85 px-5 py-1.5 text-[12px] whitespace-nowrap shadow-[0_0_24px_-6px_rgba(34,211,238,0.55)] backdrop-blur-md md:text-[12.5px]">
+        <span className="size-1.5 flex-none animate-pulse-dot rounded-full bg-aqua-400 shadow-[0_0_8px_var(--color-aqua-400)]" />
+        <span className="font-semibold tracking-tight text-aqua-300">
           {promoBanner.headline}
         </span>
-        <span aria-hidden="true" className="hidden text-white/25 md:inline">
+        <span aria-hidden="true" className="hidden text-white/25 lg:inline">
           ·
         </span>
-        <span className="hidden text-white/55 md:inline">
+        <span className="hidden text-white/55 lg:inline">
           {promoBanner.detail}
         </span>
       </p>

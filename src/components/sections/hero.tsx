@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative overflow-hidden px-6 pt-32 pb-24 lg:px-8 lg:pt-52"
+      className="relative overflow-hidden px-6 pt-36 pb-12 lg:pb-24 lg:px-8 lg:pt-52"
     >
       <HeroBackdrop />
       <MobileBackdropArt />
@@ -51,23 +51,30 @@ export function Hero() {
                 <ArrowRight className="size-4" />
               </ButtonLink>
               <ButtonLink href="#work" variant="ghost">
-                <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
-                  <path d="M5 3.5l7 4.5-7 4.5z" fill="currentColor" />
-                </svg>
+                <span className="grid size-6 flex-none place-items-center rounded-full bg-linear-to-br from-brand-500 to-aqua-400 shadow-[0_0_14px_rgba(34,211,238,0.55)]">
+                  <svg
+                    viewBox="0 0 16 16"
+                    className="size-3 translate-x-px"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 3.5l7 4.5-7 4.5z" fill="#06070A" />
+                  </svg>
+                </span>
                 View Our Work
               </ButtonLink>
             </div>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <ul className="flex flex-wrap gap-2 pt-2">
+            <ul className="flex flex-wrap gap-1 pt-2 w-10/12">
               {heroBadges.map((badge) => (
-                <li
-                  key={badge}
-                  className="rounded-full border border-white/9 bg-white/3 px-3.25 py-1.75 text-[12.5px] font-medium text-white/62 transition-colors hover:border-brand-500/50 hover:bg-brand-600/10 hover:text-white"
-                >
-                  {badge}
-                </li>
+                <Image
+                  src={badge.image}
+                  alt=""
+                  width={100}
+                  height={40}
+                  className="object-contain"
+                />
               ))}
             </ul>
           </Reveal>
@@ -91,7 +98,7 @@ function MobileBackdropArt() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute right-0 -bottom-4 z-0 w-[85%] max-w-md opacity-25 select-none sm:w-[65%] lg:hidden"
+      className="pointer-events-none absolute right-0 bottom-4 z-0 w-[85%] max-w-md opacity-85 select-none sm:w-[65%] lg:hidden"
     >
       <Image
         src="/herobg.png"
@@ -117,10 +124,10 @@ function VerticalWordmark() {
   return (
     <div
       aria-hidden="true"
-      // top-26 clears the fixed chrome; bottom-10 keeps the last letter clear
+      // top-28 clears the fixed chrome; bottom-10 keeps the last letter clear
       // of the section edge. `whitespace-nowrap` stops a tight fit breaking the
       // word into a second vertical column, and the section clips any residue.
-      className="pointer-events-none absolute top-26 -right-3 bottom-10 z-0 hidden select-none md:block"
+      className="pointer-events-none absolute top-28 -right-3 bottom-10 z-0 hidden select-none md:block"
     >
       <span className="bg-linear-to-b from-brand-500/40 via-brand-600/26 via-50% to-aqua-600/16 bg-clip-text text-[clamp(4rem,9vw,8.25rem)] leading-none font-extrabold tracking-[-0.055em] whitespace-nowrap text-transparent [writing-mode:vertical-rl]">
         {site.wordmarkPrimary}

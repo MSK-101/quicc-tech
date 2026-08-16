@@ -155,54 +155,54 @@ function PhoneCard() {
 function PhoneFrame() {
   return (
     <div className="rounded-[26px] bg-linear-[150deg,rgba(255,255,255,0.24),rgba(255,255,255,0.05)] p-1.75 shadow-[0_40px_70px_-26px_rgba(0,0,0,0.95),0_0_60px_-18px_rgba(37,99,235,0.55)]">
-        <div className="flex min-h-[300px] flex-col gap-2.75 overflow-hidden rounded-[20px] border border-white/7 bg-[#0B0D14] px-2.75 py-3">
-          <div className="flex justify-center">
-            <span className="h-1 w-11 rounded-full bg-white/18" />
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="h-1.75 w-13 rounded-full bg-white/35" />
-            <span className="size-5 rounded-full bg-linear-to-br from-brand-700 to-aqua-400" />
-          </div>
+      <div className="flex min-h-[300px] flex-col gap-2.75 overflow-hidden rounded-[20px] border border-white/7 bg-[#0B0D14] px-2.75 py-3">
+        <div className="flex justify-center">
+          <span className="h-1 w-11 rounded-full bg-white/18" />
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="h-1.75 w-13 rounded-full bg-white/35" />
+          <span className="size-5 rounded-full bg-linear-to-br from-brand-700 to-aqua-400" />
+        </div>
 
-          <div className="flex flex-col gap-2 rounded-[14px] border border-white/10 bg-linear-[140deg,rgba(37,99,235,0.3),rgba(34,211,238,0.14)] p-3.25">
-            <span className="font-mono text-[8px] tracking-[0.14em] text-white/50">
-              BALANCE
-            </span>
-            <span className="text-[19px] font-semibold tracking-tight">
-              $12,480
-            </span>
-            <svg viewBox="0 0 140 34" className="h-7 w-full" fill="none">
-              <path
-                d="M0 26L14 20L28 24L42 12L56 17L70 8L84 13L98 5L112 10L126 3L140 7"
-                stroke="#22D3EE"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+        <div className="flex flex-col gap-2 rounded-[14px] border border-white/10 bg-linear-[140deg,rgba(37,99,235,0.3),rgba(34,211,238,0.14)] p-3.25">
+          <span className="font-mono text-[8px] tracking-[0.14em] text-white/50">
+            BALANCE
+          </span>
+          <span className="text-[19px] font-semibold tracking-tight">
+            $12,480
+          </span>
+          <svg viewBox="0 0 140 34" className="h-7 w-full" fill="none">
+            <path
+              d="M0 26L14 20L28 24L42 12L56 17L70 8L84 13L98 5L112 10L126 3L140 7"
+              stroke="#22D3EE"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
 
-          {PHONE_ROWS.map((row) => (
-            <div
-              key={row.width}
-              className="flex items-center gap-2.25 rounded-[11px] border border-white/5 bg-white/3.5 p-2.25"
-            >
+        {PHONE_ROWS.map((row) => (
+          <div
+            key={row.width}
+            className="flex items-center gap-2.25 rounded-[11px] border border-white/5 bg-white/3.5 p-2.25"
+          >
+            <span
+              className={`size-6 flex-none rounded-lg bg-linear-to-br ${row.gradient}`}
+            />
+            <span className="flex flex-1 flex-col gap-1.25">
               <span
-                className={`size-6 flex-none rounded-lg bg-linear-to-br ${row.gradient}`}
+                className="h-1.25 rounded-full bg-white/28"
+                style={{ width: row.width }}
               />
-              <span className="flex flex-1 flex-col gap-1.25">
-                <span
-                  className="h-1.25 rounded-full bg-white/28"
-                  style={{ width: row.width }}
-                />
-                <span className="h-1 w-[42%] rounded-full bg-white/13" />
-              </span>
-            </div>
-          ))}
-
-          <div className="mt-auto flex items-center justify-center rounded-[11px] bg-white py-2.5 text-[10.5px] font-semibold text-ink-950">
-            Continue
+              <span className="h-1 w-[42%] rounded-full bg-white/13" />
+            </span>
           </div>
+        ))}
+
+        <div className="mt-auto flex items-center justify-center rounded-[11px] bg-white py-2.5 text-[10.5px] font-semibold text-ink-950">
+          Continue
+        </div>
       </div>
     </div>
   );

@@ -25,8 +25,8 @@ export function SiteHeader() {
 
   return (
     <header
-      // top offsets mirror PromoBanner's height (h-8, then h-9 from md).
-      className={`fixed inset-x-0 top-8 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-350 md:top-9 ${
+      // top offset mirrors PromoBanner's height (h-12).
+      className={`fixed inset-x-0 top-12 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-350 ${
         isScrolled
           ? "border-white/10 bg-ink-950/80 backdrop-blur-xl"
           : "border-transparent bg-transparent"
