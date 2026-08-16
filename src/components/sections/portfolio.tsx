@@ -11,11 +11,11 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { projects, type Project } from "@/content/work";
 import { EASE } from "@/lib/motion";
 
-/** How many pieces are visible before the visitor asks for the rest. */
-const FEATURED_COUNT = 6;
+/** How many pieces are visible on desktop before the visitor asks for more. */
+const FEATURED_COUNT = 3;
 
-/** Phones show fewer, so the section stays scannable on a small screen. */
-const MOBILE_COUNT = 3;
+/** Phones show a single piece, so the section stays short on a small screen. */
+const MOBILE_COUNT = 1;
 
 /**
  * Work shown as a grid of real screenshots rather than a carousel.
