@@ -36,7 +36,7 @@ export function Services() {
             index="01"
             label="SERVICES"
             title="Everything You Need to Build, Launch, and Grow"
-            description="One team handles strategy, design, development and launch. You'll know exactly what happens at each stage, pay as each stage is finished, and own everything we build from day one."
+            description="Our team handles strategy, design, development and launch. You'll know exactly what happens at each stage, pay as each stage is finished, and own everything we build from day one."
           />
           <Reveal delay={0.1}>
             <a

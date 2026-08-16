@@ -53,7 +53,7 @@ export function TechStack() {
       <div className="relative mx-auto max-w-[1240px]">
         <div className="mb-14 flex flex-wrap items-end justify-between gap-8">
           <SectionHeading
-            index="05"
+            index="07"
             label="STACK"
             title="Modern Technology, Built to Last"
             description="We select proven, well-supported technologies with strong long-term roadmaps, ensuring your product remains secure, scalable, and easy to maintain as your business grows."
