@@ -33,7 +33,7 @@ export function Process() {
   return (
     <section
       id="process"
-      className="relative overflow-hidden px-6 py-28 lg:px-8"
+      className="relative overflow-hidden px-6 py-16 lg:px-8"
     >
       <SectionEdgeLabel text="PROCESS" side="left" />
       <IsoFlow className="pointer-events-none absolute top-1/2 -right-20 hidden w-100 -translate-y-1/2 opacity-40 [mask-image:linear-gradient(90deg,transparent,#000_45%)] lg:block" />

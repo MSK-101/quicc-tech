@@ -66,15 +66,19 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <ul className="flex flex-wrap gap-1 pt-2 w-10/12">
+            <ul className="flex w-11/12 flex-wrap">
               {heroBadges.map((badge) => (
-                <Image
-                  src={badge.image}
-                  alt=""
-                  width={100}
-                  height={40}
-                  className="object-contain"
-                />
+                <li key={badge.label}>
+                  <Image
+                    src={badge.image}
+                    alt={badge.label}
+                    width={100}
+                    height={40}
+                    className={`object-contain ${
+                      badge.label === "Custom Software" ? "w-32" : ""
+                    }`}
+                  />
+                </li>
               ))}
             </ul>
           </Reveal>
