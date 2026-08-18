@@ -1,18 +1,18 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 
-import { ReasonIcon } from "@/components/icons/reason-icons";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionEdgeLabel } from "@/components/ui/section-edge-label";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { reasons } from "@/content/reasons";
 
 /**
- * The ten reasons as a single centred column: a large index, a hexagon-framed
- * icon, then the reason and its supporting line. A dotted rail links each row
- * to the next so the list reads as one continuous sequence.
+ * The ten reasons as a single centred column: an index, then the reason and its
+ * supporting line, strung along a hairline rail so the list reads as one
+ * continuous sequence.
  *
- * Every row carries its own accent colour, graded from aqua down to magenta.
+ * Every row carries its own accent colour, cycling aqua → pink over the first
+ * six and then back through purple into blue.
  */
 export function WhyQuicc() {
   return (
@@ -60,32 +60,22 @@ export function WhyQuicc() {
               as="li"
               key={reason.title}
               delay={0.04}
-              className="group relative flex gap-5 pb-10 last:pb-0 sm:gap-7"
-              // Exposed as a variable so the number, hexagon and rail can all
-              // share one colour without repeating it four times.
+              className="group relative flex gap-5 border-l border-white/8 pb-9 pl-6 last:border-transparent last:pb-0 sm:gap-7 sm:pl-8"
+              // Exposed as a variable so the number and the rail node share one
+              // colour without repeating it.
               style={{ "--accent": reason.accent } as CSSProperties}
             >
-              <span className="w-9 flex-none pt-1 text-right font-mono text-[19px] leading-none font-semibold tabular-nums text-[color:var(--accent)] sm:w-12 sm:text-[22px]">
+              {/* Node on the rail, tinted with the row's own accent. */}
+              <span
+                aria-hidden="true"
+                className="absolute top-2 -left-[3px] size-1.5 rounded-full bg-[color:var(--accent)] shadow-[0_0_10px_var(--accent)]"
+              />
+
+              <span className="w-9 flex-none font-mono text-[19px] leading-none font-semibold tabular-nums text-[color:var(--accent)] sm:w-12 sm:text-[22px]">
                 {String(index + 1).padStart(2, "0")}
               </span>
 
-              <div className="relative flex-none">
-                <ReasonIcon
-                  name={reason.icon}
-                  className="size-13 text-[color:var(--accent)] transition-transform duration-400 group-hover:scale-105 sm:size-14"
-                />
-                {/* Dotted rail down to the next row, with a node at its centre. */}
-                {index < reasons.length - 1 ? (
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-full mx-auto flex h-10 w-px justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.16),transparent)]"
-                  >
-                    <span className="mt-4 size-1.5 rounded-full bg-[color:var(--accent)] opacity-70" />
-                  </span>
-                ) : null}
-              </div>
-
-              <div className="min-w-0 pt-1">
+              <div className="min-w-0">
                 <h3 className="text-[17px] leading-snug font-semibold tracking-[-0.015em] sm:text-[18px]">
                   {reason.title}
                 </h3>
