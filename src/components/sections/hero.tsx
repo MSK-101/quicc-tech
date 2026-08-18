@@ -66,17 +66,16 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.2}>
-            <ul className="flex w-11/12 flex-wrap">
+            <ul className="grid grid-cols-3 gap-2 w-10/12 items-center justify-center">
               {heroBadges.map((badge) => (
                 <li key={badge.label}>
                   <Image
                     src={badge.image}
                     alt={badge.label}
-                    width={100}
-                    height={40}
-                    className={`object-contain ${
-                      badge.label === "Custom Software" ? "w-32" : ""
-                    }`}
+                    width={200}
+                    height={400}
+                    className={`object-contain ${badge.label == "Custom Software" ? "ml-2 scale-125" : ""
+                      }`}
                   />
                 </li>
               ))}
