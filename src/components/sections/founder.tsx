@@ -61,19 +61,28 @@ export function Founder() {
                 className="absolute inset-x-0 bottom-0 h-auto w-[90%] justify-self-center object-contain"
               />
 
-              {/* Glass chip: a deep blue gradient body, a bright top edge and a
-                  diagonal sheen, so it reads as lit glass rather than a flat
-                  panel. `overflow-hidden` keeps the sheen inside the corners. */}
-              <div className="absolute bottom-14 left-1 overflow-hidden rounded-2xl border border-white/20 bg-linear-[145deg,rgba(37,99,235,0.55),rgba(11,42,111,0.62)_45%,rgba(6,7,10,0.78)] px-4 py-3 shadow-[0_12px_34px_-10px_rgba(37,99,235,0.75),inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl">
+              {/* Glass chip: a bright blue rim carries the shape, the body
+                  stays mostly transparent so the circuit art refracts through
+                  it, and corner glints plus a diagonal sheen give it the lit
+                  edge. Clipped to the radius so none of it spills. */}
+              <div className="absolute bottom-14 left-1 overflow-hidden rounded-[20px] border border-brand-400/55 bg-linear-[150deg,rgba(37,99,235,0.20),rgba(6,7,10,0.55)] px-5 py-3.5 shadow-[0_0_26px_-4px_rgba(59,130,246,0.7),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_0_26px_rgba(37,99,235,0.2)] backdrop-blur-xl">
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute -top-8 -left-6 h-16 w-[140%] rotate-[18deg] bg-linear-to-b from-white/28 via-white/8 to-transparent blur-md"
+                  className="pointer-events-none absolute -top-4 -left-4 size-16 rounded-full bg-brand-400/45 blur-xl"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-5 -bottom-5 size-18 rounded-full bg-aqua-400/30 blur-xl"
+                />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -top-8 -left-6 h-16 w-[140%] rotate-[18deg] bg-linear-to-b from-white/22 via-white/6 to-transparent blur-md"
                 />
 
-                <span className="relative mb-1 block bg-linear-to-r from-brand-300 via-aqua-300 to-brand-400 bg-clip-text font-mono text-[9.5px] tracking-[0.16em] text-transparent">
-                  QUICC RESPONSE
+                <span className="relative block bg-linear-to-r from-brand-300 via-aqua-300 to-brand-400 bg-clip-text text-[10px] font-medium tracking-[0.3em] text-transparent uppercase">
+                  Quicc Response
                 </span>
-                <span className="relative text-[17px] font-semibold tracking-[-0.02em] text-white drop-shadow-[0_1px_6px_rgba(37,99,235,0.5)]">
+                <span className="relative mt-1.5 block text-[19px] font-extrabold tracking-[-0.015em] text-white drop-shadow-[0_2px_10px_rgba(59,130,246,0.6)]">
                   Under 12 Hours
                 </span>
               </div>
