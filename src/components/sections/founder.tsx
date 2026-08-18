@@ -42,30 +42,38 @@ export function Founder() {
             {/* The portrait is a cut-out again, so the circuit backdrop and the
                 response badge are composited here rather than baked into one
                 flattened file. */}
-            <div className="relative aspect-[2/3] w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.9)]">
+            <div className="relative aspect-[2/3] w-full max-w-sm rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: "url('/team/founder-bg.png')" }}
+            >
               <Image
                 src="/team/founder-bg.png"
                 alt=""
                 aria-hidden="true"
                 fill
-                sizes="(min-width: 1024px) 40vw, 90vw"
                 className="object-cover object-center"
               />
 
               <Image
                 src="/team/founder.png"
                 alt={`Founder and Chief Executive Officer of ${site.name}`}
-                width={1454}
-                height={1982}
-                sizes="(min-width: 1024px) 40vw, 90vw"
-                className="absolute inset-x-0 bottom-0 h-auto w-full object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.55)]"
+                width={2800}
+                height={2982}
+                className="absolute inset-x-0 bottom-0 h-auto w-[90%] justify-self-center object-contain"
               />
 
-              <div className="absolute bottom-5 left-5 rounded-2xl border border-white/15 bg-ink-950/70 px-4 py-3 backdrop-blur-md">
-                <span className="mb-1 block font-mono text-[9.5px] tracking-[0.16em] text-aqua-300/80">
+              {/* Glass chip: a deep blue gradient body, a bright top edge and a
+                  diagonal sheen, so it reads as lit glass rather than a flat
+                  panel. `overflow-hidden` keeps the sheen inside the corners. */}
+              <div className="absolute bottom-14 left-1 overflow-hidden rounded-2xl border border-white/20 bg-linear-[145deg,rgba(37,99,235,0.55),rgba(11,42,111,0.62)_45%,rgba(6,7,10,0.78)] px-4 py-3 shadow-[0_12px_34px_-10px_rgba(37,99,235,0.75),inset_0_1px_0_rgba(255,255,255,0.4)] backdrop-blur-xl">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -top-8 -left-6 h-16 w-[140%] rotate-[18deg] bg-linear-to-b from-white/28 via-white/8 to-transparent blur-md"
+                />
+
+                <span className="relative mb-1 block bg-linear-to-r from-brand-300 via-aqua-300 to-brand-400 bg-clip-text font-mono text-[9.5px] tracking-[0.16em] text-transparent">
                   QUICC RESPONSE
                 </span>
-                <span className="text-[17px] font-semibold tracking-[-0.02em]">
+                <span className="relative text-[17px] font-semibold tracking-[-0.02em] text-white drop-shadow-[0_1px_6px_rgba(37,99,235,0.5)]">
                   Under 12 Hours
                 </span>
               </div>
