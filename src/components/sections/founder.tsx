@@ -65,7 +65,7 @@ export function Founder() {
                   stays mostly transparent so the circuit art refracts through
                   it, and corner glints plus a diagonal sheen give it the lit
                   edge. Clipped to the radius so none of it spills. */}
-              <div className="absolute bottom-14 left-1 overflow-hidden rounded-[20px] border border-brand-400/55 bg-linear-[150deg,rgba(37,99,235,0.20),rgba(6,7,10,0.55)] px-5 py-3.5 shadow-[0_0_26px_-4px_rgba(59,130,246,0.7),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_0_26px_rgba(37,99,235,0.2)] backdrop-blur-xl">
+              <div className="absolute bottom-16 left-1 overflow-hidden rounded-[12px] border border-brand-400/55 bg-linear-[150deg,rgba(37,99,235,0.20),rgba(6,7,10,0.55)] px-3 py-2 shadow-[0_0_26px_-4px_rgba(59,130,246,0.7),inset_0_1px_0_rgba(255,255,255,0.3),inset_0_0_26px_rgba(37,99,235,0.2)] backdrop-blur-xl">
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute -top-4 -left-4 size-16 rounded-full bg-brand-400/45 blur-xl"
@@ -79,10 +79,10 @@ export function Founder() {
                   className="pointer-events-none absolute -top-8 -left-6 h-16 w-[140%] rotate-[18deg] bg-linear-to-b from-white/22 via-white/6 to-transparent blur-md"
                 />
 
-                <span className="relative block bg-linear-to-r from-brand-300 via-aqua-300 to-brand-400 bg-clip-text text-[10px] font-medium tracking-[0.3em] text-transparent uppercase">
+                <span className="relative block bg-linear-to-r text-[8px] from-brand-300 via-aqua-300 to-brand-400 bg-clip-text tracking-widest text-transparent uppercase">
                   Quicc Response
                 </span>
-                <span className="relative mt-1.5 block text-[19px] font-extrabold tracking-[-0.015em] text-white drop-shadow-[0_2px_10px_rgba(59,130,246,0.6)]">
+                <span className="relative mt-0.5 block text-[14px] font-medium tracking-[-0.015em] text-white drop-shadow-[0_2px_10px_rgba(59,130,246,0.6)]">
                   Under 12 Hours
                 </span>
               </div>
