@@ -31,6 +31,11 @@ export function SiteFooter() {
                 <a
                   href={social.href}
                   aria-label={social.label}
+                  // Live profiles open in a new tab; placeholders ("#") stay in
+                  // place so they do not spawn a blank window.
+                  {...(social.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="grid size-9.5 place-items-center rounded-[10px] border border-white/10 bg-white/3 text-white/55 transition-colors hover:border-aqua-400/50 hover:bg-white/10 hover:text-aqua-300"
                 >
                   <SocialIcon name={social.icon} className="size-4.5" />

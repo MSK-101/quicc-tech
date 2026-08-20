@@ -41,7 +41,13 @@ export const navLinks = [
 
 export const socialLinks: { label: string; icon: SocialIconName; href: string }[] =
   [
-    { label: "Instagram", icon: "instagram", href: "#" },
+    {
+      label: "Instagram",
+      icon: "instagram",
+      // The ?utm_source=qr the profile link carries is for QR-code scans;
+      // keeping it here would file website visitors under that campaign.
+      href: "https://www.instagram.com/quicctech",
+    },
     { label: "LinkedIn", icon: "linkedin", href: "#" },
     { label: "X (Twitter)", icon: "twitter", href: "#" },
     { label: "Facebook", icon: "facebook", href: "#" },
