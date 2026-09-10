@@ -1,8 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { PortfolioLightbox } from "@/components/sections/portfolio-lightbox";
 import { Button } from "@/components/ui/button";
@@ -11,11 +11,16 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { projects, type Project } from "@/content/work";
 import { EASE } from "@/lib/motion";
 
-/** How many pieces are visible on desktop before the visitor asks for more. */
-const FEATURED_COUNT = 3;
+/**
+ * How many pieces are visible on desktop before the visitor asks for more.
+ *
+ * The showreel tile is two columns wide, so this counts five to fill two
+ * complete rows of three rather than stranding a lone card on a second row.
+ */
+const FEATURED_COUNT = 5;
 
-/** Phones show a single piece, so the section stays short on a small screen. */
-const MOBILE_COUNT = 1;
+/** Phones stack one per row, so they show fewer before the "view all" button. */
+const MOBILE_COUNT = 3;
 
 /**
  * Work shown as a grid of real screenshots rather than a carousel.
@@ -58,12 +63,15 @@ export function Portfolio() {
             <Reveal
               key={project.id}
               delay={(index % 3) * 0.06}
-              // Phones show only MOBILE_COUNT until "view all" is pressed; the
-              // rest are revealed by CSS so there is no hydration flash from
-              // measuring the viewport in JS.
-              className={
-                !showAll && index >= MOBILE_COUNT ? "hidden sm:block" : undefined
-              }
+              className={[
+                cardSpan(project),
+                // Phones show only MOBILE_COUNT until "view all" is pressed;
+                // the rest are hidden by CSS so there is no hydration flash
+                // from measuring the viewport in JS.
+                !showAll && index >= MOBILE_COUNT ? "hidden sm:block" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               <ProjectCard
                 project={project}
@@ -81,6 +89,7 @@ export function Portfolio() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 18 }}
                     transition={{ duration: 0.4, delay: index * 0.05, ease: EASE }}
+                    className={cardSpan(project)}
                   >
                     <ProjectCard
                       project={project}
@@ -118,6 +127,15 @@ export function Portfolio() {
   );
 }
 
+/**
+ * Grid placement for one card. A showreel is landscape footage, so it takes
+ * two columns and matches the row's height rather than being squeezed into
+ * the tall 4:5 window that suits a full-page screenshot.
+ */
+function cardSpan(project: Project) {
+  return project.video ? "sm:col-span-2 lg:h-full" : "";
+}
+
 function ProjectCard({
   project,
   onOpen,
@@ -126,43 +144,64 @@ function ProjectCard({
   onOpen: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const isVideo = Boolean(project.video);
+  const previewsInView = isVideo && !prefersReducedMotion;
 
-  // preload="none" means nothing is fetched until this runs, so scrolling past
-  // the tile costs no bandwidth.
-  const playPreview = () => {
+  // The showreel plays itself, silently, while it is on screen, and stops the
+  // moment it is not — a still tile among screenshots reads as another
+  // screenshot. Nothing is fetched until the first play, so a visitor who
+  // never scrolls this far pays nothing for it.
+  useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
-    video.play().catch(() => {
-      // Autoplay can be refused (low power mode, reduced motion); the poster
-      // stays up and the lightbox still works, so there is nothing to handle.
-    });
-  };
+    if (!previewsInView || !video) return;
 
-  const stopPreview = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-  };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {
+            // Playback can be refused outright (low power mode, a data saver).
+            // The poster stays up and the lightbox still works, so there is
+            // nothing to recover from.
+          });
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [previewsInView]);
 
   return (
     <button
       type="button"
       onClick={onOpen}
-      onMouseEnter={isVideo ? playPreview : undefined}
-      onMouseLeave={isVideo ? stopPreview : undefined}
-      className="group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-ink-900 text-left transition duration-400 hover:-translate-y-1.5 hover:border-white/25 hover:shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)]"
+      className={`group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-ink-900 text-left transition duration-400 hover:-translate-y-1.5 hover:border-white/25 hover:shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)] ${
+        isVideo ? "lg:h-full" : ""
+      }`}
     >
-      {/* 4:5 window onto the top of the capture — enough to read the hero of
-          each page without letting a 19,000px-tall screenshot set the height.
-          Video posters are 16:9, so those centre their crop instead. */}
-      <div className="relative aspect-[4/5] overflow-hidden">
+      {/* Screenshots get a 4:5 window onto the top of the capture — enough to
+          read the hero of each page without letting a 19,000px-tall image set
+          the height. The showreel instead keeps its own 16:9 shape, and from
+          `lg` fills the height of the row it shares with a screenshot. */}
+      <div
+        className={`relative overflow-hidden ${
+          isVideo ? "aspect-video lg:aspect-auto lg:h-full" : "aspect-[4/5]"
+        }`}
+      >
         <Image
           src={project.image}
           alt={`${project.title} — ${project.category}`}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+          sizes={
+            isVideo
+              ? "(max-width: 1024px) 100vw, 820px"
+              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+          }
           className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
             isVideo ? "object-center" : "object-top"
           }`}
@@ -172,13 +211,18 @@ function ProjectCard({
           <video
             ref={videoRef}
             src={project.video}
-            poster={project.image}
             muted
             loop
             playsInline
             preload="none"
             aria-hidden="true"
-            className="absolute inset-0 size-full object-cover object-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            // Revealed only once frames are actually on screen, so the poster
+            // is never replaced by an empty box while the file loads.
+            onPlaying={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            className={`absolute inset-0 size-full object-cover object-center transition-opacity duration-500 ${
+              isPlaying ? "opacity-100" : "opacity-0"
+            }`}
           />
         ) : null}
 
