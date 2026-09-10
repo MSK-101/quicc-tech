@@ -20,7 +20,8 @@ type PortfolioLightboxProps = {
  *
  * Page captures are extremely tall, so the image is rendered at full width
  * inside a scrollable panel rather than being squeezed to fit the viewport —
- * the point is to read the whole page, not to see a thumbnail of it.
+ * the point is to read the whole page, not to see a thumbnail of it. A video
+ * entry opens the same way, as a full player with sound and controls.
  */
 export function PortfolioLightbox({
   projects,
@@ -149,15 +150,30 @@ export function PortfolioLightbox({
               // Clicks inside the image must not fall through to the backdrop.
               onClick={(event) => event.stopPropagation()}
             >
-              <Image
-                src={current.project.image}
-                alt={`${current.project.title} — ${current.project.category}`}
-                width={current.project.width}
-                height={current.project.height}
-                sizes="(max-width: 896px) 100vw, 896px"
-                className="h-auto w-full"
-                priority
-              />
+              {current.project.video ? (
+                <video
+                  // Keyed so switching projects mounts a fresh player instead
+                  // of leaving the previous clip's playback state behind.
+                  key={current.project.id}
+                  src={current.project.video}
+                  poster={current.project.image}
+                  controls
+                  autoPlay
+                  loop
+                  playsInline
+                  className="h-auto w-full"
+                />
+              ) : (
+                <Image
+                  src={current.project.image}
+                  alt={`${current.project.title} — ${current.project.category}`}
+                  width={current.project.width}
+                  height={current.project.height}
+                  sizes="(max-width: 896px) 100vw, 896px"
+                  className="h-auto w-full"
+                  priority
+                />
+              )}
             </motion.div>
           </div>
         </motion.div>

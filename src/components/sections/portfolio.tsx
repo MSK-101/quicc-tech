@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { PortfolioLightbox } from "@/components/sections/portfolio-lightbox";
 import { Button } from "@/components/ui/button";
@@ -125,23 +125,73 @@ function ProjectCard({
   project: Project;
   onOpen: () => void;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const isVideo = Boolean(project.video);
+
+  // preload="none" means nothing is fetched until this runs, so scrolling past
+  // the tile costs no bandwidth.
+  const playPreview = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.play().catch(() => {
+      // Autoplay can be refused (low power mode, reduced motion); the poster
+      // stays up and the lightbox still works, so there is nothing to handle.
+    });
+  };
+
+  const stopPreview = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
+  };
+
   return (
     <button
       type="button"
       onClick={onOpen}
+      onMouseEnter={isVideo ? playPreview : undefined}
+      onMouseLeave={isVideo ? stopPreview : undefined}
       className="group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-ink-900 text-left transition duration-400 hover:-translate-y-1.5 hover:border-white/25 hover:shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)]"
     >
       {/* 4:5 window onto the top of the capture — enough to read the hero of
-          each page without letting a 19,000px-tall screenshot set the height. */}
+          each page without letting a 19,000px-tall screenshot set the height.
+          Video posters are 16:9, so those centre their crop instead. */}
       <div className="relative aspect-[4/5] overflow-hidden">
         <Image
           src={project.image}
           alt={`${project.title} — ${project.category}`}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
+            isVideo ? "object-center" : "object-top"
+          }`}
         />
+
+        {isVideo ? (
+          <video
+            ref={videoRef}
+            src={project.video}
+            poster={project.image}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden="true"
+            className="absolute inset-0 size-full object-cover object-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          />
+        ) : null}
+
         <div className="absolute inset-0 bg-linear-to-t from-ink-950 via-ink-950/10 to-transparent" />
+
+        {isVideo ? (
+          <span className="absolute top-4 left-4 flex items-center gap-1.5 rounded-full border border-white/20 bg-ink-950/70 px-2.5 py-1 text-[11px] font-semibold backdrop-blur-md">
+            <svg viewBox="0 0 16 16" className="size-2.5" aria-hidden="true">
+              <path d="M5 3.5l7 4.5-7 4.5z" fill="currentColor" />
+            </svg>
+            Video
+          </span>
+        ) : null}
 
         <span className="absolute top-4 right-4 grid size-9 place-items-center rounded-full border border-white/20 bg-ink-950/70 opacity-0 backdrop-blur-md transition-opacity duration-300 group-hover:opacity-100">
           <svg viewBox="0 0 16 16" className="size-3.5" aria-hidden="true">
@@ -165,7 +215,7 @@ function ProjectCard({
           <p className="truncate text-[13px] text-white/55">{project.category}</p>
         </div>
         <span className="flex-none text-[12px] font-semibold text-aqua-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          View
+          {isVideo ? "Play" : "View"}
         </span>
       </div>
     </button>
