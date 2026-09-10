@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!--
+    Browser-tab icon: the same open arc and two nodes as the header logo, on
+    the site's own near-black so it reads against a light or a dark tab strip.
+    The mark is scaled up from its 200-unit lockup so it fills the tile rather
+    than floating in the middle of it at 16px.
+  -->
+  <title>Quicc Technologies</title>
+  <defs>
+    <linearGradient id="icon-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1D4ED8" />
+      <stop offset="100%" stop-color="#22D3EE" />
+    </linearGradient>
+  </defs>
+
+  <rect width="200" height="200" rx="44" fill="#06070A" />
+
+  <g transform="translate(100 100) scale(1.16) translate(-100 -100)">
+    <path
+      d="M129.58,163.44 A70,70 0 1,1 163.44,129.58"
+      fill="none"
+      stroke="url(#icon-gradient)"
+      stroke-width="20"
+      stroke-linecap="round"
+    />
+    <circle cx="129.58" cy="163.44" r="9" fill="#22D3EE" />
+    <circle cx="163.44" cy="129.58" r="9" fill="#1D4ED8" />
+  </g>
+</svg>
