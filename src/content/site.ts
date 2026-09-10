@@ -50,7 +50,13 @@ export const socialLinks: { label: string; icon: SocialIconName; href: string }[
     },
     { label: "LinkedIn", icon: "linkedin", href: "#" },
     { label: "X (Twitter)", icon: "twitter", href: "#" },
-    { label: "Facebook", icon: "facebook", href: "#" },
+    {
+      label: "Facebook",
+      icon: "facebook",
+      // The canonical page URL the /share/1CkPYE8pTx link redirects to,
+      // linked directly so visitors skip the hop and the share tracking.
+      href: "https://www.facebook.com/people/Quicc-Technologies/61594276891013/",
+    },
   ];
 
 /**
