@@ -49,7 +49,7 @@ export const testimonialsRowOne: Testimonial[] = [
   {
     name: "James Whitaker",
     role: "Owner, Ironwood Retail",
-    rating: 4,
+    rating: 4.5,
     initials: "JW",
     quote:
       "Milestone billing made a big project affordable for a small business. Timeline slipped by about a week during testing, but they flagged it early rather than letting the date quietly pass.",
@@ -84,7 +84,7 @@ export const testimonialsRowTwo: Testimonial[] = [
   {
     name: "Rohan Mehta",
     role: "Founder, Stride Fitness",
-    rating: 4.5,
+    rating: 5,
     initials: "RM",
     quote:
       "Both app stores approved on the first submission, which I did not expect. Onboarding copy needed a rewrite after launch, but the build itself was solid.",
@@ -100,7 +100,7 @@ export const testimonialsRowTwo: Testimonial[] = [
   {
     name: "Victor Almeida",
     role: "Managing Director, Cobalt Group",
-    rating: 3.5,
+    rating: 4.5,
     initials: "VA",
     quote:
       "Good engineering and a fair price. Communication was slower during the middle stretch than at the start, though it picked back up once we raised it.",
@@ -116,7 +116,7 @@ export const testimonialsRowTwo: Testimonial[] = [
   {
     name: "Ade Balogun",
     role: "CEO, Palladium Ventures",
-    rating: 4,
+    rating: 5,
     initials: "AB",
     quote:
       "Straight answers on what our budget could and could not buy. They talked us out of two features we did not need, which is not something I have had from an agency before.",
