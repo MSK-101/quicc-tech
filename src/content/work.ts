@@ -11,10 +11,16 @@ export type Project = {
   width: number;
   height: number;
   /**
-   * Present only on video entries. The tile plays it muted on hover and the
-   * lightbox opens a full player with sound and controls.
+   * Present only on video entries. The tile plays it muted while on screen
+   * and the lightbox opens a full player with sound and controls.
    */
   video?: string;
+  /**
+   * Breaks this piece out of the uniform grid. "wide" takes two columns for
+   * landscape footage; "tall" takes two rows for a portrait composition.
+   * Everything else sits in the standard 4:5 cell.
+   */
+  feature?: "wide" | "tall";
 };
 
 /**
@@ -36,14 +42,16 @@ export const projects: Project[] = [
     width: 1280,
     height: 720,
     video: "/showcase/showreel.mp4",
+    feature: "wide",
   },
   {
     id: "doctor-app",
     title: "Doctor",
     category: "Healthcare App",
     image: "/showcase/doctor-app.jpg",
-    width: 1600,
-    height: 1200,
+    width: 900,
+    height: 2180,
+    feature: "tall",
   },
   {
     id: "golden-platter",

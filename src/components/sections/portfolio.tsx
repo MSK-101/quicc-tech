@@ -14,10 +14,11 @@ import { EASE } from "@/lib/motion";
 /**
  * How many pieces are visible on desktop before the visitor asks for more.
  *
- * The showreel tile is two columns wide, so this counts five to fill two
- * complete rows of three rather than stranding a lone card on a second row.
+ * Four fills the opening block exactly: the wide showreel takes two columns
+ * of the first row and the tall Doctor tile takes the third column of both,
+ * leaving two cells for the pieces that follow.
  */
-const FEATURED_COUNT = 5;
+const FEATURED_COUNT = 4;
 
 /** Phones stack one per row, so they show fewer before the "view all" button. */
 const MOBILE_COUNT = 3;
@@ -128,12 +129,29 @@ export function Portfolio() {
 }
 
 /**
- * Grid placement for one card. A showreel is landscape footage, so it takes
- * two columns and matches the row's height rather than being squeezed into
- * the tall 4:5 window that suits a full-page screenshot.
+ * Grid placement for one card.
+ *
+ * Most pieces sit in a single 4:5 cell. The two featured shapes break out of
+ * it: landscape footage spans two columns, and a portrait composition spans
+ * two rows so it is shown standing up rather than cropped to a letterbox.
  */
 function cardSpan(project: Project) {
-  return project.video ? "sm:col-span-2 lg:h-full" : "";
+  if (project.feature === "wide") return "sm:col-span-2";
+  if (project.feature === "tall") return "sm:row-span-2 sm:h-full";
+  return "";
+}
+
+/** The aspect the media box holds at each breakpoint, per feature shape. */
+function mediaShape(project: Project) {
+  if (project.feature === "wide") return "aspect-video";
+  if (project.feature === "tall") return "aspect-[4/5] sm:aspect-auto sm:h-full";
+  return "aspect-[4/5]";
+}
+
+/** What slice of the viewport this card's image occupies, for srcset picking. */
+function imageSizes(project: Project) {
+  if (project.feature === "wide") return "(max-width: 1024px) 100vw, 820px";
+  return "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px";
 }
 
 function ProjectCard({
@@ -147,6 +165,7 @@ function ProjectCard({
   const [isPlaying, setIsPlaying] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const isVideo = Boolean(project.video);
+  const isTall = project.feature === "tall";
   const previewsInView = isVideo && !prefersReducedMotion;
 
   // The showreel plays itself, silently, while it is on screen, and stops the
@@ -181,29 +200,23 @@ function ProjectCard({
       type="button"
       onClick={onOpen}
       className={`group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-ink-900 text-left transition duration-400 hover:-translate-y-1.5 hover:border-white/25 hover:shadow-[0_40px_90px_-40px_rgba(0,0,0,0.95)] ${
-        isVideo ? "lg:h-full" : ""
+        isTall ? "sm:h-full" : ""
       }`}
     >
-      {/* Screenshots get a 4:5 window onto the top of the capture — enough to
-          read the hero of each page without letting a 19,000px-tall image set
-          the height. The showreel instead keeps its own 16:9 shape, and from
-          `lg` fills the height of the row it shares with a screenshot. */}
-      <div
-        className={`relative overflow-hidden ${
-          isVideo ? "aspect-video lg:aspect-auto lg:h-full" : "aspect-[4/5]"
-        }`}
-      >
+      {/* A 4:5 window onto the top of the capture — enough to read the hero of
+          each page without letting a 19,000px-tall image set the height. The
+          two featured shapes opt out: landscape footage keeps its own 16:9,
+          and the portrait tile fills the two rows it spans. */}
+      <div className={`relative overflow-hidden ${mediaShape(project)}`}>
         <Image
           src={project.image}
           alt={`${project.title} — ${project.category}`}
           fill
-          sizes={
-            isVideo
-              ? "(max-width: 1024px) 100vw, 820px"
-              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-          }
+          sizes={imageSizes(project)}
           className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${
-            isVideo ? "object-center" : "object-top"
+            // Page captures and the portrait composition both read from the
+            // top down; only the landscape clip wants its middle.
+            project.feature === "wide" ? "object-center" : "object-top"
           }`}
         />
 
