@@ -144,7 +144,10 @@ function cardSpan(project: Project) {
 /** The aspect the media box holds at each breakpoint, per feature shape. */
 function mediaShape(project: Project) {
   if (project.feature === "wide") return "aspect-video";
-  if (project.feature === "tall") return "aspect-[4/5] sm:aspect-auto sm:h-full";
+  if (project.feature === "tall")
+    // One column means no two-row cell to fill, so it takes the showreel's
+    // shape instead and swaps in landscape artwork to suit (see mobileImage).
+    return "aspect-video sm:aspect-auto sm:h-full";
   return "aspect-[4/5]";
 }
 
@@ -208,6 +211,21 @@ function ProjectCard({
           two featured shapes opt out: landscape footage keeps its own 16:9,
           and the portrait tile fills the two rows it spans. */}
       <div className={`relative overflow-hidden ${mediaShape(project)}`}>
+        {/* Art direction — the phone layout shows a different crop of the
+            project, not a smaller copy of the same one — so it takes two
+            elements rather than one srcset. `hidden` alone would not stop
+            the spare downloading, so this one also declares a 1px slot above
+            `sm`; between that and lazy loading the browser leaves it alone. */}
+        {project.mobileImage ? (
+          <Image
+            src={project.mobileImage}
+            alt={`${project.title} — ${project.category}`}
+            fill
+            sizes="(min-width: 640px) 1px, 100vw"
+            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04] sm:hidden"
+          />
+        ) : null}
+
         <Image
           src={project.image}
           alt={`${project.title} — ${project.category}`}
@@ -217,7 +235,7 @@ function ProjectCard({
             // Page captures and the portrait composition both read from the
             // top down; only the landscape clip wants its middle.
             project.feature === "wide" ? "object-center" : "object-top"
-          }`}
+          } ${project.mobileImage ? "hidden sm:block" : ""}`}
         />
 
         {isVideo ? (

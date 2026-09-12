@@ -21,6 +21,12 @@ export type Project = {
    * Everything else sits in the standard 4:5 cell.
    */
   feature?: "wide" | "tall";
+  /**
+   * Alternative artwork for the single-column phone layout, where a "tall"
+   * piece loses its two-row cell and would be cropped to a letterbox. Only
+   * the grid uses it; the lightbox always opens `image`.
+   */
+  mobileImage?: string;
 };
 
 /**
@@ -52,6 +58,7 @@ export const projects: Project[] = [
     width: 900,
     height: 2180,
     feature: "tall",
+    mobileImage: "/showcase/doctor-app-wide.jpg",
   },
   {
     id: "golden-platter",
